@@ -10,11 +10,11 @@ import {
 @Entity()
 export class StockProducto {
   @PrimaryGeneratedColumn()
-  codigo_StockProducto: number;
+  id_StockProducto: number;
 
   @Column({ type: 'numeric', nullable: false })
   cantidad: number;
   @OneToOne(() => Producto)
-  @JoinColumn({ name: 'codigo_producto' })
+  @JoinColumn({ name: 'id_producto' })
   producto: Producto;
 }

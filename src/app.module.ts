@@ -11,10 +11,13 @@ import { FacturasModule } from './facturas/facturas.module';
 import { DetalleFacturasModule } from './detalle_facturas/detalle_facturas.module';
 import { TipoPagosModule } from './tipo_pagos/tipo_pagos.module';
 import { StockProductosModule } from './stock_productos/stock_productos.module';
-import { ClientesModule } from './clientes/clientes.module';
-import { CreditosModule } from './creditos/creditos.module';
-import { AdminModule } from './admin/admin.module';
 import { IvaModule } from './iva/iva.module';
+import { AutenticacionModule } from './autenticacion/autenticacion.module';
+import { TiposIdentificacionesModule } from './tipos_identificaciones/tipos_identificaciones.module';
+import { UsuariosRolesModule } from './usuarios_roles/usuarios_roles.module';
+import { MenusModule } from './menus/menus.module';
+import { RolesMenusModule } from './roles_menus/roles_menus.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -38,10 +41,13 @@ import { IvaModule } from './iva/iva.module';
     DetalleFacturasModule,
     TipoPagosModule,
     StockProductosModule,
-    ClientesModule,
-    CreditosModule,
-    AdminModule,
     IvaModule,
+    AutenticacionModule,
+    TiposIdentificacionesModule,
+    UsuariosRolesModule,
+    MenusModule,
+    RolesMenusModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],

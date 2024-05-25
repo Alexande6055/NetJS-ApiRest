@@ -11,14 +11,19 @@ import {
 @Entity()
 export class Producto {
   @PrimaryGeneratedColumn()
-  codigo_producto: number;
+  id_producto: number;
   @Column({ type: 'varchar', nullable: false })
   nombre: string;
-
+  @Column({ type: 'varchar', nullable: false })
+  descripcion: string;
+  @Column({ type: 'varchar', nullable: true })
+  imgUrl: string;
   @ManyToOne(() => DetalleFactura)
-  @JoinColumn({ name: 'codigo_detalle_factura' })
+  @JoinColumn({ name: 'id_detalle_factura' })
   detalleFactura: DetalleFactura;
   @ManyToOne(() => Iva)
-  @JoinColumn({ name: 'codigo_iva' })
+  @JoinColumn({ name: 'id_iva' })
   iva: Iva;
+  @Column({ type: 'decimal', nullable: true, precision: 10, scale: 4 })
+  precio: number;
 }

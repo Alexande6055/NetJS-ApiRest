@@ -1,15 +1,23 @@
 import { Injectable } from '@nestjs/common';
 import { CreateProductoDto } from './dto/create-producto.dto';
 import { UpdateProductoDto } from './dto/update-producto.dto';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Producto } from './entities/producto.entity';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class ProductosService {
+  constructor(
+    @InjectRepository(Producto)
+    private readonly productoRepository: Repository<Producto>,
+  ) {}
+
   create(createProductoDto: CreateProductoDto) {
-    return 'This action adds a new producto';
+    return this.productoRepository.save(createProductoDto);
   }
 
   findAll() {
-    return `This action returns all productos`;
+    return this.productoRepository.find();
   }
 
   findOne(id: number) {

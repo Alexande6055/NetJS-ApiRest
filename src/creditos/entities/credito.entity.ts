@@ -11,12 +11,12 @@ import {
 @Entity()
 export class Credito {
   @PrimaryGeneratedColumn()
-  codigo_credito: number;
+  id_credito: number;
   @OneToOne(() => Factura)
-  @JoinColumn({ name: 'codigo_factura' })
+  @JoinColumn({ name: 'id_factura' })
   factura: Factura;
   total: number;
-  @ManyToOne(() => Cliente, (cliente) => cliente.codigo_cliente)
-  @JoinColumn({ name: 'codigo_cliente' })
-  codigo_cliente: number;
+  @ManyToOne(() => Cliente, (cliente) => cliente.id_cliente)
+  @JoinColumn({ name: 'id_cliente' })
+  id_cliente: number;
 }

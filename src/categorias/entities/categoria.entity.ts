@@ -10,12 +10,12 @@ import {
 @Entity()
 export class Categoria {
   @PrimaryGeneratedColumn()
-  codigo_categoria: number;
+  id_categoria: number;
 
   @Column({ type: 'varchar', nullable: false })
   nombre: string;
 
-  @ManyToOne(() => Producto, (producto) => producto.codigo_producto)
-  @JoinColumn({ name: 'codigo_producto' })
-  codigo_producto: number;
+  @ManyToOne(() => Producto, (producto) => producto.id_producto)
+  @JoinColumn({ name: 'id_producto' })
+  id_producto: number;
 }

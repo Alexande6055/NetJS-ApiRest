@@ -13,19 +13,19 @@ import {
 @Entity()
 export class Factura {
   @PrimaryGeneratedColumn()
-  codigo_factura: number;
+  id_factura: number;
   @Column({ type: 'date', nullable: false })
   fecha: Date;
   @OneToOne(() => DetalleFactura)
-  @JoinColumn({ name: 'codigo_detalle_factura' })
+  @JoinColumn({ name: 'id_detalle_factura' })
   detalleFactura: DetalleFactura;
   @OneToOne(() => Persona)
-  @JoinColumn({ name: 'codigo_persona' })
+  @JoinColumn({ name: 'id_persona' })
   persona: Persona;
   @OneToOne(() => TipoPago)
-  @JoinColumn({ name: 'codigo_pago' })
+  @JoinColumn({ name: 'id_pago' })
   tipoPago: TipoPago;
   @Column({ type: 'decimal', nullable: false, precision: 10, scale: 4 })
   totalFactura: Double;
-  //insertar relacion al codigo sucursal
+  //insertar relacion al id sucursal
 }

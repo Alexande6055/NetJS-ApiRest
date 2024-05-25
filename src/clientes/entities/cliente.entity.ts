@@ -5,8 +5,8 @@ import { Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
 @Entity()
 export class Cliente {
   @PrimaryGeneratedColumn()
-  codigo_cliente: number;
+  id_cliente: number;
   @OneToOne(() => Role)
-  @JoinColumn({ name: 'codigo_persona' })
+  @JoinColumn({ name: 'id_persona' })
   role: Role;
 }
