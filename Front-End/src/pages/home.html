@@ -4,13 +4,29 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Home - Productos</title>
-    <link rel="stylesheet" href="../assests/css/homeStyles.css" />
+    <link rel="stylesheet" href="../assests/css/bodyHome.css" />
+    <link rel="stylesheet" href="../assests/css/cartHome.css" />
+    <link rel="stylesheet" href="../assests/css/headerHome.css" />
+    <link rel="stylesheet" href="../assests/css/productHome.css" />
   </head>
   <body>
+    <header>
+      <button id="cart-button">
+        <img src="../assets/icons/cart-icon.svg" alt="Carrito" />
+        <span id="cart-count">0</span>
+      </button>
+    </header>
     <div class="product-container">
       <h2>Productos</h2>
       <div id="product-list"></div>
     </div>
+    <div id="cart" class="hidden">
+      <h2>Carrito de Compras</h2>
+      <div id="cart-items"></div>
+      <button id="checkout-button">Proceder al pago</button>
+      <button id="cerrar_carrito">x</button>
+    </div>
     <script src="../assests/js/homeScript.js"></script>
+    <script src="../assests/js/validacion.js"></script>
   </body>
 </html>

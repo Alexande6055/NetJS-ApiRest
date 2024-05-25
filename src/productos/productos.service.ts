@@ -20,8 +20,8 @@ export class ProductosService {
     return this.productoRepository.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} producto`;
+  findOne(id_producto: number) {
+    return this.productoRepository.findOneBy({ id_producto });
   }
 
   update(id: number, updateProductoDto: UpdateProductoDto) {
