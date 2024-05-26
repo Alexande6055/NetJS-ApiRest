@@ -1,4 +1,4 @@
-//cargar datos del backend al front end
+// Cargar datos del backend al front end
 document.addEventListener('DOMContentLoaded', async function () {
   try {
     const response = await fetch('http://localhost:8000/api/productos');
@@ -10,14 +10,17 @@ document.addEventListener('DOMContentLoaded', async function () {
     const productList = document.getElementById('product-list');
 
     products.forEach((product) => {
+      // Asegurarse de que el precio sea un número y redondearlo a 2 decimales
+      const precio = parseFloat(product.precio);
+      const precioRedondeado = precio.toFixed(2);
+
       const productCard = document.createElement('div');
       productCard.className = 'product-card';
-
       productCard.innerHTML = `
                 <img src="${product.imgUrl}" alt="${product.nombre}">
                 <h3 id="precio_producto">${product.nombre}</h3>
                 <p>${product.descripcion}</p>
-                <p class="price">$${product.precio}</p>
+                <p class="price">$${precioRedondeado}</p>
                 <button data-id="${product.id_producto}">Comprar</button>
             `;
 
@@ -34,6 +37,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     console.error(error.message);
   }
 });
+
 
 let cart = [];
 
