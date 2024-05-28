@@ -39,6 +39,7 @@ document.addEventListener('DOMContentLoaded', async function () {
 });
 
 
+
 let cart = [];
 
 async function addToCart(productId) {
@@ -110,3 +111,5 @@ async function obtenerProducto(id_producto) {
     console.error(error.message);
   }
 }
+
+
