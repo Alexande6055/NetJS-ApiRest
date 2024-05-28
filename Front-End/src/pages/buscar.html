@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buscar</title>
+</head>
+<body>
+    <input type="text" id="buscarPersona" style="width: 200px;" placeholder="Buscar persona por identificación">
+    <button id="buscarBtn">Buscar</button>
+    <br>
+    <span id="error" style="color: red;"></span>
+
+    <div id="result" data-user style="display: none;">
+        <h1 id="nombre"></h1>
+        <p id="direccion"></p>
+        <p id="identificacion"></p>
+        <p id="celular"></p>
+        <p id="telefono"></p>
+        <p id="correo_electronico"></p>
+        <p id="fecha_nacimiento"></p>
+        <p id="estado"></p>
+    </div>
+
+    <script src="../assests/js/validacion.js" type="text/javascript"></script>
+</body>
+</html>
