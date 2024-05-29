@@ -15,6 +15,9 @@
         <img src="../assets/icons/cart-icon.svg" alt="Carrito" />
         <span id="cart-count">0</span>
       </button>
+      <button id="administrar-button">
+        <img src="../assets/icons/cart-icon.svg" alt="Administrar" />
+      </button>
     </header>
     <div class="product-container">
       <h2>Productos</h2>
@@ -28,5 +31,12 @@
     </div>
     <script src="../assests/js/homeScript.js"></script>
     <script src="../assests/js/validacion.js"></script>
+    <script>
+      document
+        .getElementById('administrar-button')
+        .addEventListener('click', function () {
+          window.location.href = '/Front-End/src/pages/Administrar.html';
+        });
+    </script>
   </body>
 </html>
