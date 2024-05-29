@@ -18,6 +18,8 @@ import { UsuariosRolesModule } from './usuarios_roles/usuarios_roles.module';
 import { MenusModule } from './menus/menus.module';
 import { RolesMenusModule } from './roles_menus/roles_menus.module';
 import { AuthModule } from './auth/auth.module';
+import { CarritoCompraModule } from './carrito_compra/carrito_compra.module';
+import { CarritoProductoModule } from './carrito_producto/carrito_producto.module';
 
 @Module({
   imports: [
@@ -48,6 +50,8 @@ import { AuthModule } from './auth/auth.module';
     MenusModule,
     RolesMenusModule,
     AuthModule,
+    CarritoCompraModule,
+    CarritoProductoModule,
   ],
   controllers: [AppController],
   providers: [AppService],

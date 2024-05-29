@@ -10,7 +10,7 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
-@Entity()
+@Entity('facturas')
 export class Factura {
   @PrimaryGeneratedColumn()
   id_factura: number;

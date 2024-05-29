@@ -2,7 +2,7 @@ import { Menu } from 'src/menus/entities/menu.entity';
 import { Role } from 'src/roles/entities/role.entity';
 import { Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 
-@Entity()
+@Entity('roles_menus')
 export class RolesMenu {
   @PrimaryGeneratedColumn()
   id_rol_menu: number;

@@ -5,7 +5,7 @@ import {
   DeleteDateColumn,
 } from 'typeorm';
 
-@Entity()
+@Entity('tipos_identificaciones')
 export class TiposIdentificacione {
   @PrimaryGeneratedColumn()
   id_tipo_identidicacion: number;

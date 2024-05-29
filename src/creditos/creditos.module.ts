@@ -5,7 +5,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { Credito } from './entities/credito.entity';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Credito])],
+  // imports: [TypeOrmModule.forFeature([Credito])],
   controllers: [CreditosController],
   providers: [CreditosService],
 })

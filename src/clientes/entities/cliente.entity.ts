@@ -2,7 +2,7 @@ import { Persona } from 'src/personas/entities/persona.entity';
 import { Role } from 'src/roles/entities/role.entity';
 import { Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
 
-@Entity()
+@Entity('clientes')
 export class Cliente {
   @PrimaryGeneratedColumn()
   id_cliente: number;

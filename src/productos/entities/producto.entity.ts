@@ -8,7 +8,7 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
-@Entity()
+@Entity('productos')
 export class Producto {
   @PrimaryGeneratedColumn()
   id_producto: number;

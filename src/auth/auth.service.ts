@@ -9,13 +9,25 @@ import { RegisterDto } from './dto/register.dto';
 import * as bcryptjs from 'bcryptjs';
 import { LoginDto } from './dto/Login.dto';
 import { JwtService } from '@nestjs/jwt';
+import { CreateProductoDto } from 'src/productos/dto/create-producto.dto';
+import { ProductosService } from 'src/productos/productos.service';
+import { SourceTextModule } from 'vm';
+import { Usuario } from 'src/usuarios/entities/usuario.entity';
 
 @Injectable()
 export class AuthService {
   constructor(
     private readonly usuarioService: UsuariosService,
     private readonly jwtService: JwtService,
+    private readonly productoService: ProductosService,
   ) {}
+  //---------------
+
+  productos(createProductoDto: CreateProductoDto) {
+    return this.productoService.create(createProductoDto);
+  }
+
+  //-----------
 
   async register({ password, username }: RegisterDto) {
     const user = await this.usuarioService.findByOneByUserName(username);
@@ -37,13 +49,22 @@ export class AuthService {
     if (!isPasswordValid) {
       throw new UnauthorizedException('Contraseña incorrecta');
     }
+    const usuario = await this.usuarioService.obtenerPermisos(user.username);
 
-    const payload = { username: user.username };
+    const payload = {
+      username: user.username,
+      role: usuario,
+    };
+
     const token = await this.jwtService.signAsync(payload);
     return {
       token,
-      //user,
+      //usuario,
     };
+  }
+  async profile({ username, rol }: { username: string; rol: string[] }) {
+    const user = await this.usuarioService.findByOneByUserName(username);
+    return { user, rol };
   }
 }
 

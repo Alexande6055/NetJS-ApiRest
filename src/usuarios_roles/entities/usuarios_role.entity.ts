@@ -2,7 +2,7 @@ import { Role } from 'src/roles/entities/role.entity';
 import { Usuario } from 'src/usuarios/entities/usuario.entity';
 import { Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 
-@Entity()
+@Entity('usuarios_roles')
 export class UsuariosRole {
   @PrimaryGeneratedColumn()
   id_usuario_rol: number;
@@ -11,8 +11,8 @@ export class UsuariosRole {
   @JoinColumn({ name: 'id_usuario' })
   id_usuario: number;
 
-  @ManyToOne(() => Role, (role) => role.id_rol)
+  @ManyToOne(() => Role)
   @JoinColumn({ name: 'id_rol' })
-  id_rol: number;
+  id_rol: Role;
 }
 //1:32:00
