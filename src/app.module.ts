@@ -20,6 +20,7 @@ import { RolesMenusModule } from './roles_menus/roles_menus.module';
 import { AuthModule } from './auth/auth.module';
 import { CarritoCompraModule } from './carrito_compra/carrito_compra.module';
 import { CarritoProductoModule } from './carrito_producto/carrito_producto.module';
+import { CategoriaModule } from './categoria/categoria.module';
 
 @Module({
   imports: [
@@ -52,6 +53,7 @@ import { CarritoProductoModule } from './carrito_producto/carrito_producto.modul
     AuthModule,
     CarritoCompraModule,
     CarritoProductoModule,
+    CategoriaModule,
   ],
   controllers: [AppController],
   providers: [AppService],

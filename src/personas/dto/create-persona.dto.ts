@@ -41,4 +41,6 @@ export class CreatePersonaDto {
   @IsString()
   @MinLength(3)
   nombre_tipoIdentificacion: string;
+  @IsNumber()
+  id_usuario: number;
 }

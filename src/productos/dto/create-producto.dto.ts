@@ -17,9 +17,10 @@ export class CreateProductoDto {
   descripcion: string;
   @IsString()
   @Optional()
-  @Transform(({ value }) => value.trim())
   @MinLength(8)
   imgUrl?: string;
   @IsNumber()
   precio: number;
+  @IsString()
+  id_categoria: string;
 }

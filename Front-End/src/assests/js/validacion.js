@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', () => {
+/*document.addEventListener('DOMContentLoaded', () => {
   const buscarBtn = document.getElementById('buscarBtn');
   const buscarPersonaInput = document.getElementById('buscarPersona');
   const errorSpan = document.getElementById('error');
@@ -65,4 +65,11 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   buscarBtn.addEventListener('click', buscarPersona);
+});
+*/
+document.addEventListener('DOMContentLoaded', (event) => {
+  const token = localStorage.getItem('authToken');
+  if (!token) {
+    window.location.href = '/Front-End/public/index.html';
+  }
 });

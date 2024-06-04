@@ -6,6 +6,7 @@ import { Usuario } from './entities/usuario.entity';
 import { Repository } from 'typeorm';
 import { CarritoCompraService } from 'src/carrito_compra/carrito_compra.service';
 import { UsuariosRole } from 'src/usuarios_roles/entities/usuarios_role.entity';
+import { promises } from 'dns';
 
 @Injectable()
 export class UsuariosService {
@@ -16,15 +17,21 @@ export class UsuariosService {
   ) {}
 
   async create(createUsuarioDto: CreateUsuarioDto) {
-    const carritoCompra = await this.carritoCompraService.create();
-    if (!carritoCompra) {
-      throw new Error('No se pudo crear el carrito para el usuario');
+    const usuarioExistente = await this.findByOneByUserName(
+      createUsuarioDto.username,
+    );
+    if (!usuarioExistente) {
+      const carritoCompra = await this.carritoCompraService.create();
+      if (!carritoCompra) {
+        throw new Error('No se pudo crear el carrito para el usuario');
+      }
+      const usuario = this.usuarioRepository.create({
+        ...createUsuarioDto,
+        id_carrito_compra: carritoCompra,
+      });
+      return (await this.usuarioRepository.save(usuario)).id_usuario;
     }
-    const usuario = this.usuarioRepository.create({
-      ...createUsuarioDto,
-      id_carrito_compra: carritoCompra,
-    });
-    return this.usuarioRepository.save(usuario);
+    return 'usuario ya existente';
   }
 
   findAll(): Promise<Usuario[]> {
@@ -56,7 +63,15 @@ export class UsuariosService {
     if (!user) {
       throw new NotFoundException('Usuario no encontrado');
     }
-    const roles = user.usuarioRoles.map((role) => role.id_rol.persona);
+    const roles = user.usuarioRoles.map((role) => role.id_rol.nombre);
     return roles;
+  }
+  async obtenerCarrito(username: string): Promise<number> {
+    const user = await this.usuarioRepository.findOne({
+      where: { username },
+      relations: ['id_carrito_compra'], // Carga la relación id_carrito_compra
+    });
+    console.log(user);
+    return user.id_carrito_compra.id_producto_carrito;
   }
 }

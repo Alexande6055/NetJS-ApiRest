@@ -4,14 +4,16 @@ import { UpdateCarritoProductoDto } from './dto/update-carrito_producto.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CarritoProducto } from './entities/carrito_producto.entity';
 import { Repository } from 'typeorm';
+import { ProductosService } from 'src/productos/productos.service';
 
 @Injectable()
 export class CarritoProductoService {
   constructor(
     @InjectRepository(CarritoProducto)
     private readonly carritoProductoRepository: Repository<CarritoProducto>,
+    private readonly productoService: ProductosService,
   ) {}
-  create(createCarritoProductoDto: CreateCarritoProductoDto) {
+  async create(createCarritoProductoDto: CreateCarritoProductoDto) {
     return this.carritoProductoRepository.save(createCarritoProductoDto);
   }
 

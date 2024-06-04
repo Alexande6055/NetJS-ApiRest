@@ -50,10 +50,13 @@ export class AuthService {
       throw new UnauthorizedException('Contraseña incorrecta');
     }
     const usuario = await this.usuarioService.obtenerPermisos(user.username);
-
+    const id_carrito_compra = await this.usuarioService.obtenerCarrito(
+      user.username,
+    );
     const payload = {
       username: user.username,
       role: usuario,
+      id_carrito: id_carrito_compra,
     };
 
     const token = await this.jwtService.signAsync(payload);

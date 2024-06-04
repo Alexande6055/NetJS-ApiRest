@@ -1,3 +1,5 @@
+import { agregarProducto } from '/Front-End/src/assests/home/carritosCRUD.js';
+
 // Cargar datos del backend al front end
 document.addEventListener('DOMContentLoaded', async function () {
   try {
@@ -38,15 +40,13 @@ document.addEventListener('DOMContentLoaded', async function () {
   }
 });
 
-
-
 let cart = [];
 
 async function addToCart(productId) {
   // Aquí se debería agregar la lógica para obtener detalles del producto desde una fuente confiable.
   // Para simplificar, se usa un objeto de ejemplo:
   const producto = await obtenerProducto(productId);
-  console.log(producto.nombre);
+  agregarProducto(parseInt(productId));
   const product = {
     id: productId,
     nombre: producto.nombre,
@@ -111,5 +111,3 @@ async function obtenerProducto(id_producto) {
     console.error(error.message);
   }
 }
-
-

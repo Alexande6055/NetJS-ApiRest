@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gestión de Roles</title>
+    <link rel="stylesheet" href="../assests/rol/body.css" />
+    <link rel="stylesheet" href="../assests/rol/formulario.css" />
+    <link rel="stylesheet" href="../assests/rol/listaRol.css" />
+  </head>
+  <body>
+    <h1>Gestión de Roles</h1>
+    <form id="roleForm">
+      <input type="text" id="roleName" placeholder="Nombre del Rol" />
+      <button id="crearRol" type="submit">Agregar Rol</button>
+    </form>
+    <div id="rolesList">
+      <!-- Aquí se mostrará la lista de roles -->
+    </div>
+
+    <script src="/Front-End/src/assests/rol/datos.js" type="module"></script>
+    <script
+      src="/Front-End/src/assests/rol/actualizar.js"
+      type="module"
+    ></script>
+  </body>
+</html>

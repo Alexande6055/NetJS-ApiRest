@@ -10,6 +10,7 @@ import {
 import { ProductosService } from './productos.service';
 import { CreateProductoDto } from './dto/create-producto.dto';
 import { UpdateProductoDto } from './dto/update-producto.dto';
+import { sourceMapsEnabled } from 'process';
 
 @Controller('productos')
 export class ProductosController {
@@ -17,6 +18,7 @@ export class ProductosController {
 
   @Post()
   create(@Body() createProductoDto: CreateProductoDto) {
+    console.log(createProductoDto);
     return this.productosService.create(createProductoDto);
   }
 
@@ -32,14 +34,14 @@ export class ProductosController {
 
   @Patch(':id')
   update(
-    @Param('id') id: string,
+    @Param('id') id: number,
     @Body() updateProductoDto: UpdateProductoDto,
   ) {
-    return this.productosService.update(+id, updateProductoDto);
+    return this.productosService.update(id, updateProductoDto);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.productosService.remove(+id);
+  remove(@Param('id') id: number) {
+    return this.productosService.remove(id);
   }
 }

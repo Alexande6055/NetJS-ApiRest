@@ -1,7 +1,9 @@
+import { Categoria } from 'src/categorias/entities/categoria.entity';
 import { DetalleFactura } from 'src/detalle_facturas/entities/detalle_factura.entity';
 import { Iva } from 'src/iva/entities/iva.entity';
 import {
   Column,
+  DeleteDateColumn,
   Entity,
   JoinColumn,
   ManyToOne,
@@ -26,4 +28,9 @@ export class Producto {
   iva: Iva;
   @Column({ type: 'decimal', nullable: true, precision: 10, scale: 4 })
   precio: number;
+  @DeleteDateColumn()
+  deletAt: Date;
+  @ManyToOne(() => Categoria)
+  @JoinColumn({ name: 'id_categoria' })
+  id_categoria: Categoria;
 }

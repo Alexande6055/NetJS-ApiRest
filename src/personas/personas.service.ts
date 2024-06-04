@@ -5,6 +5,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Persona } from './entities/persona.entity';
 import { Repository } from 'typeorm';
 import { TiposIdentificacione } from 'src/tipos_identificaciones/entities/tipos_identificacione.entity';
+import { UsuariosService } from 'src/usuarios/usuarios.service';
 
 @Injectable()
 export class PersonasService {
@@ -14,6 +15,7 @@ export class PersonasService {
     private readonly personaRepository: Repository<Persona>,
     @InjectRepository(TiposIdentificacione)
     private readonly tiposIdentificacioneRepository: Repository<TiposIdentificacione>,
+    private readonly usuariosService: UsuariosService,
   ) {}
 
   async create(createPersonaDto: CreatePersonaDto) {
@@ -23,7 +25,9 @@ export class PersonasService {
       await this.tiposIdentificacioneRepository.findOneBy({
         nombre: createPersonaDto.nombre_tipoIdentificacion,
       });
-
+    const usuario = await this.usuariosService.findOne(
+      createPersonaDto.id_usuario,
+    );
     if (!tipoIdentificacion) {
       throw new NotFoundException(
         `Tipo de Identificación with nombre ${createPersonaDto.nombre_tipoIdentificacion} not found`,
@@ -33,6 +37,7 @@ export class PersonasService {
     const persona = this.personaRepository.create({
       ...createPersonaDto,
       id_tipo_identificacion: tipoIdentificacion.id_tipo_identidicacion,
+      id_usuario: usuario,
     });
     return this.personaRepository.save(persona);
   }

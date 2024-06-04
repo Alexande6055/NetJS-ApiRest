@@ -1,14 +1,27 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+} from '@nestjs/common';
 import { CarritoProductoService } from './carrito_producto.service';
 import { CreateCarritoProductoDto } from './dto/create-carrito_producto.dto';
 import { UpdateCarritoProductoDto } from './dto/update-carrito_producto.dto';
 
 @Controller('carrito-producto')
 export class CarritoProductoController {
-  constructor(private readonly carritoProductoService: CarritoProductoService) {}
+  constructor(
+    private readonly carritoProductoService: CarritoProductoService,
+  ) {}
 
   @Post()
   create(@Body() createCarritoProductoDto: CreateCarritoProductoDto) {
+    console.log();
+    console.log(createCarritoProductoDto.id_carrito_compra);
+    console.log(createCarritoProductoDto);
     return this.carritoProductoService.create(createCarritoProductoDto);
   }
 
@@ -23,7 +36,10 @@ export class CarritoProductoController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateCarritoProductoDto: UpdateCarritoProductoDto) {
+  update(
+    @Param('id') id: string,
+    @Body() updateCarritoProductoDto: UpdateCarritoProductoDto,
+  ) {
     return this.carritoProductoService.update(+id, updateCarritoProductoDto);
   }
 

@@ -1,0 +1,17 @@
+#rolesList {
+    margin-bottom: 20px;
+}
+
+.role-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+}
+
+.role-item button {
+    width: auto;
+    padding: 5px 10px;
+    font-size: 14px;
+}

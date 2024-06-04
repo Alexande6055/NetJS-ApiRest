@@ -6,5 +6,5 @@ export class Role {
   id_rol: number;
 
   @Column({ type: 'varchar', nullable: false })
-  persona: string;
+  nombre: string;
 }

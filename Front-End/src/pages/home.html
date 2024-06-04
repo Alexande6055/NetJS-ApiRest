@@ -12,16 +12,32 @@
   <body>
     <header>
       <button id="cart-button">
-        <img class="carrito" src="../assests/img/cart-shopping-solid.svg" width="25px" height="25px" alt="Carrito" /> 
+        <img
+          class="carrito"
+          src="../assests/img/cart-shopping-solid.svg"
+          width="25px"
+          height="25px"
+          alt="Carrito"
+        />
         <span id="cart-count">0</span>
       </button>
-<<<<<<< HEAD
       <button id="administrar-button">
         <img src="../assets/icons/cart-icon.svg" alt="Administrar" />
       </button>
-=======
-       <a href="buscar.html"><img class="lupa" src="../assests/img/magnifying-glass-solid.svg" width="25px" height="25px" alt="buscador" /></a>  
->>>>>>> 1fd4dcf258d97239f37368278597341a2967eaf8
+      <button id="rol-button">
+        <img src="../assets/icons/cart-icon.svg" alt="Rol" />
+      </button>
+      <button id="perfil-button">
+        <img src="../assets/icons/cart-icon.svg" alt="perfil" />
+      </button>
+      <a href="buscar.html"
+        ><img
+          class="lupa"
+          src="../assests/img/magnifying-glass-solid.svg"
+          width="25px"
+          height="25px"
+          alt="buscador"
+      /></a>
     </header>
     <div class="product-container">
       <h2>Productos</h2>
@@ -33,14 +49,9 @@
       <button id="checkout-button">Proceder al pago</button>
       <button id="cerrar_carrito">x</button>
     </div>
-    <script src="../assests/js/homeScript.js"></script>
-    <script src="../assests/js/validacion.js"></script>
-    <script>
-      document
-        .getElementById('administrar-button')
-        .addEventListener('click', function () {
-          window.location.href = '/Front-End/src/pages/Administrar.html';
-        });
-    </script>
+    <script type="module" src="../assests/home/homeScript.js"></script>
+    <script type="module" src="../assests/js/validacion.js"></script>
+
+    <script type="module" src="../assests/home/redirecciones.js"></script>
   </body>
 </html>

@@ -10,13 +10,14 @@ import {
 import { PersonasService } from './personas.service';
 import { CreatePersonaDto } from './dto/create-persona.dto';
 import { UpdatePersonaDto } from './dto/update-persona.dto';
+import { UsuariosService } from 'src/usuarios/usuarios.service';
 
 @Controller('personas')
 export class PersonasController {
   constructor(private readonly personasService: PersonasService) {}
 
   @Post()
-  create(@Body() createPersonaDto: CreatePersonaDto) {
+  async create(@Body() createPersonaDto: CreatePersonaDto) {
     return this.personasService.create(createPersonaDto);
   }
 

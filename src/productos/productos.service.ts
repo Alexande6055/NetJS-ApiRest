@@ -4,16 +4,25 @@ import { UpdateProductoDto } from './dto/update-producto.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Producto } from './entities/producto.entity';
 import { Repository } from 'typeorm';
+import { CategoriaService } from 'src/categoria/categoria.service';
 
 @Injectable()
 export class ProductosService {
   constructor(
     @InjectRepository(Producto)
     private readonly productoRepository: Repository<Producto>,
+    private readonly categoriaService: CategoriaService,
   ) {}
 
-  create(createProductoDto: CreateProductoDto) {
-    return this.productoRepository.save(createProductoDto);
+  async create(createProductoDto: CreateProductoDto) {
+    const categoria = await this.categoriaService.findByNombre(
+      createProductoDto.id_categoria,
+    );
+    const producto = await this.productoRepository.create({
+      ...createProductoDto,
+      id_categoria: categoria,
+    });
+    return this.productoRepository.save(producto);
   }
 
   findAll() {
@@ -29,6 +38,10 @@ export class ProductosService {
   }
 
   remove(id: number) {
-    return `This action removes a #${id} producto`;
+    return this.productoRepository.softDelete(id);
+  }
+
+  findByNombre(nombre: string) {
+    return this.productoRepository.findOneBy({ nombre });
   }
 }
