@@ -1,3 +1,4 @@
+import { cargarCarrito } from './carritosCRUD.js';
 import { agregarProducto } from '/Front-End/src/assests/home/carritosCRUD.js';
 
 // Cargar datos del backend al front end
@@ -19,12 +20,12 @@ document.addEventListener('DOMContentLoaded', async function () {
       const productCard = document.createElement('div');
       productCard.className = 'product-card';
       productCard.innerHTML = `
-                <img src="${product.imgUrl}" alt="${product.nombre}">
-                <h3 id="precio_producto">${product.nombre}</h3>
-                <p>${product.descripcion}</p>
-                <p class="price">$${precioRedondeado}</p>
-                <button data-id="${product.id_producto}">Comprar</button>
-            `;
+        <img src="${product.imgUrl}" alt="${product.nombre}">
+        <h3 id="precio_producto">${product.nombre}</h3>
+        <p>${product.descripcion}</p>
+        <p class="price">$${precioRedondeado}</p>
+        <button data-id="${product.id_producto}">Comprar</button>
+      `;
 
       productList.appendChild(productCard);
     });
@@ -35,50 +36,18 @@ document.addEventListener('DOMContentLoaded', async function () {
         addToCart(productId);
       }
     });
+
+    cargarCarrito();
   } catch (error) {
     console.error(error.message);
   }
 });
 
-let cart = [];
-
 async function addToCart(productId) {
-  // Aquí se debería agregar la lógica para obtener detalles del producto desde una fuente confiable.
-  // Para simplificar, se usa un objeto de ejemplo:
-  const producto = await obtenerProducto(productId);
   agregarProducto(parseInt(productId));
-  const product = {
-    id: productId,
-    nombre: producto.nombre,
-    precio: producto.precio,
-  };
-
-  cart.push(product);
-  updateCart();
+  cargarCarrito();
 }
 
-function updateCart() {
-  const cartCount = document.getElementById('cart-count');
-  cartCount.textContent = cart.length;
-
-  const cartItems = document.getElementById('cart-items');
-  cartItems.innerHTML = '';
-
-  cart.forEach((item) => {
-    const cartItem = document.createElement('div');
-    cartItem.className = 'cart-item';
-
-    // Verificar si item.precio es un número antes de usar toFixed
-    const precio = Number(item.precio);
-
-    cartItem.innerHTML = `
-            <span>${item.nombre}</span>
-            <span>$${precio.toFixed(2)}</span>
-        `;
-
-    cartItems.appendChild(cartItem);
-  });
-}
 //seleccionar boton car
 //-----------------------
 document.getElementById('cart-button').addEventListener('click', function () {
