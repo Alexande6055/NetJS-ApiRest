@@ -10,11 +10,13 @@ import {
 import { CarritoProductoService } from './carrito_producto.service';
 import { CreateCarritoProductoDto } from './dto/create-carrito_producto.dto';
 import { UpdateCarritoProductoDto } from './dto/update-carrito_producto.dto';
+import { CarritoCompraService } from 'src/carrito_compra/carrito_compra.service';
 
 @Controller('carrito-producto')
 export class CarritoProductoController {
   constructor(
     private readonly carritoProductoService: CarritoProductoService,
+    private readonly carritoCompraService: CarritoCompraService,
   ) {}
 
   @Post()
@@ -35,16 +37,12 @@ export class CarritoProductoController {
     return this.carritoProductoService.findOne(+id);
   }
 
-  @Patch(':id')
-  update(
-    @Param('id') id: string,
-    @Body() updateCarritoProductoDto: UpdateCarritoProductoDto,
-  ) {
-    return this.carritoProductoService.update(+id, updateCarritoProductoDto);
-  }
-
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.carritoProductoService.remove(+id);
+  }
+  @Get('obtener/:id')
+  obtenerProductosCarrito(@Param('id') id: number) {
+    return this.carritoCompraService.findAllBy(id);
   }
 }

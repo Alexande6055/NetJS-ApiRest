@@ -72,6 +72,6 @@ export class UsuariosService {
       relations: ['id_carrito_compra'], // Carga la relación id_carrito_compra
     });
     console.log(user);
-    return user.id_carrito_compra.id_producto_carrito;
+    return user.id_carrito_compra.id_carrito_compra;
   }
 }

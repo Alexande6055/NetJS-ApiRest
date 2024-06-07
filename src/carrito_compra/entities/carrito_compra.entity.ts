@@ -1,4 +1,4 @@
-import { CarritoProducto } from 'src/carrito_producto/entities/carrito_producto.entity';
+import { CarritoComprasProducto } from 'src/carrito_producto/entities/carrito_producto.entity';
 import {
   Column,
   Entity,
@@ -11,13 +11,13 @@ import {
 @Entity('carritos_compras')
 export class CarritoCompra {
   @PrimaryGeneratedColumn()
-  id_producto_carrito: number;
+  id_carrito_compra: number;
 
   @OneToMany(
-    () => CarritoProducto,
+    () => CarritoComprasProducto,
     (carritoProducto) => carritoProducto.id_carrito_compra,
   )
-  carritoProductos: CarritoProducto[];
+  carritoProductos: CarritoComprasProducto[];
 
   @Column({ type: 'integer', nullable: false, default: 0 })
   cantidad: number;
