@@ -1,26 +1,34 @@
 import { Injectable } from '@nestjs/common';
 import { CreatePromocionDto } from './dto/create-promocion.dto';
 import { UpdatePromocionDto } from './dto/update-promocion.dto';
+import { Promocion } from './entities/promocion.entity';
+import { Repository } from 'typeorm';
+import { InjectRepository } from '@nestjs/typeorm';
 
 @Injectable()
 export class PromocionService {
+  constructor(
+    @InjectRepository(Promocion)
+    private readonly promocionRepocitorio: Repository<Promocion>,
+  ) {}
+
   create(createPromocionDto: CreatePromocionDto) {
-    return 'This action adds a new promocion';
+    return this.promocionRepocitorio.save(createPromocionDto);
   }
 
   findAll() {
-    return `This action returns all promocion`;
+    return this.promocionRepocitorio.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} promocion`;
+  findOne(id_procion: number) {
+    return this.promocionRepocitorio.findOneBy({ id_procion });
   }
 
-  update(id: number, updatePromocionDto: UpdatePromocionDto) {
-    return `This action updates a #${id} promocion`;
+  update(id_procion: number, updatePromocionDto: UpdatePromocionDto) {
+    return this.update(id_procion, updatePromocionDto);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} promocion`;
+  remove(id_procion: number) {
+    return this.promocionRepocitorio.softDelete(id_procion);
   }
 }
