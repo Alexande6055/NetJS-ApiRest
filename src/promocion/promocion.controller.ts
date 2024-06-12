@@ -1,4 +1,12 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+} from '@nestjs/common';
 import { PromocionService } from './promocion.service';
 import { CreatePromocionDto } from './dto/create-promocion.dto';
 import { UpdatePromocionDto } from './dto/update-promocion.dto';
@@ -18,17 +26,20 @@ export class PromocionController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.promocionService.findOne(+id);
+  findOne(@Param('id') id: number) {
+    return this.promocionService.findOne(id);
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updatePromocionDto: UpdatePromocionDto) {
-    return this.promocionService.update(+id, updatePromocionDto);
+  update(
+    @Param('id') id: number,
+    @Body() updatePromocionDto: UpdatePromocionDto,
+  ) {
+    return this.promocionService.update(id, updatePromocionDto);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.promocionService.remove(+id);
+  remove(@Param('id') id: number) {
+    return this.promocionService.remove(id);
   }
 }

@@ -6,4 +6,6 @@ export class Marca {
   id_Marca: number;
   @Column({ type: 'varchar', nullable: false })
   nombre: string;
+  @Column({ type: 'varchar', nullable: false })
+  descripcion: string;
 }
