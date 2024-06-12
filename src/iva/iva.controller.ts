@@ -1,7 +1,14 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+} from '@nestjs/common';
 import { IvaService } from './iva.service';
 import { CreateIvaDto } from './dto/create-iva.dto';
-import { UpdateIvaDto } from './dto/update-iva.dto';
 
 @Controller('iva')
 export class IvaController {
@@ -12,23 +19,16 @@ export class IvaController {
     return this.ivaService.create(createIvaDto);
   }
 
+  @Get(':id')
+  findOne(@Param('id') id: number) {
+    return this.ivaService.findOne(id);
+  }
   @Get()
   findAll() {
     return this.ivaService.findAll();
   }
-
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.ivaService.findOne(+id);
-  }
-
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateIvaDto: UpdateIvaDto) {
-    return this.ivaService.update(+id, updateIvaDto);
-  }
-
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.ivaService.remove(+id);
+  remove(@Param('id') id: number) {
+    return this.ivaService.remove(id);
   }
 }

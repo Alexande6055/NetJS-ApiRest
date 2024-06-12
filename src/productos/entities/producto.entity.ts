@@ -1,6 +1,7 @@
-import { Categoria } from 'src/categorias/entities/categoria.entity';
-import { DetalleFactura } from 'src/detalle_facturas/entities/detalle_factura.entity';
+import { Categoria } from 'src/categoria/entities/categoria.entity';
 import { Iva } from 'src/iva/entities/iva.entity';
+import { Marca } from 'src/marca/entities/marca.entity';
+import { Promocion } from 'src/promocion/entities/promocion.entity';
 import {
   Column,
   DeleteDateColumn,
@@ -20,9 +21,6 @@ export class Producto {
   descripcion: string;
   @Column({ type: 'varchar', nullable: true })
   imgUrl: string;
-  @ManyToOne(() => DetalleFactura)
-  @JoinColumn({ name: 'id_detalle_factura' })
-  detalleFactura: DetalleFactura;
   @ManyToOne(() => Iva)
   @JoinColumn({ name: 'id_iva' })
   iva: Iva;
@@ -33,4 +31,10 @@ export class Producto {
   @ManyToOne(() => Categoria)
   @JoinColumn({ name: 'id_categoria' })
   id_categoria: Categoria;
+  @ManyToOne(() => Marca, (marca) => marca.id_Marca)
+  @JoinColumn({ name: 'id_marca' })
+  id_marca: number;
+  @ManyToOne(() => Promocion, (promocion) => promocion.id_procion)
+  @JoinColumn({ name: 'id_promocion' })
+  id_promocion: number;
 }

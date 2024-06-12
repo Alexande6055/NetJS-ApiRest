@@ -18,7 +18,4 @@ export class CarritoCompra {
     (carritoProducto) => carritoProducto.id_carrito_compra,
   )
   carritoProductos: CarritoComprasProducto[];
-
-  @Column({ type: 'integer', nullable: false, default: 0 })
-  cantidad: number;
 }

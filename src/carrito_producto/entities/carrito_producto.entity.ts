@@ -1,6 +1,14 @@
 import { CarritoCompra } from 'src/carrito_compra/entities/carrito_compra.entity';
 import { Producto } from 'src/productos/entities/producto.entity';
-import { Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  BeforeInsert,
+  BeforeUpdate,
+  Column,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 
 @Entity('carrito_compras_productos')
 export class CarritoComprasProducto {
@@ -18,5 +26,12 @@ export class CarritoComprasProducto {
     eager: true,
   })
   @JoinColumn({ name: 'id_producto' })
-  id_producto: Producto;
+  id_producto: number;
+
+  @Column({ type: 'integer', nullable: false, default: 1 })
+  cantidad: number;
+
+  sumarCantidad() {
+    this.cantidad++;
+  }
 }

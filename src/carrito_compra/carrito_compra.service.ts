@@ -29,11 +29,7 @@ export class CarritoCompraService {
         `CarritoCompra with id ${id_carrito_compra} not found`,
       );
     }
-
-    const productos = carritoCompra.carritoProductos.map(
-      (cp) => cp.id_producto,
-    );
-    return productos;
+    return carritoCompra;
   }
 
   async findOne(id_carrito_compra: number) {

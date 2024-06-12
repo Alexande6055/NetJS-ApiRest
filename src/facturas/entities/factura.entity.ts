@@ -6,6 +6,7 @@ import {
   Double,
   Entity,
   JoinColumn,
+  OneToMany,
   OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
@@ -16,9 +17,12 @@ export class Factura {
   id_factura: number;
   @Column({ type: 'date', nullable: false })
   fecha: Date;
-  @OneToOne(() => DetalleFactura)
+  @OneToMany(
+    () => DetalleFactura,
+    (detalle_factura) => detalle_factura.id_detalle_factura,
+  )
   @JoinColumn({ name: 'id_detalle_factura' })
-  detalleFactura: DetalleFactura;
+  detalleFactura: number;
   @OneToOne(() => Persona)
   @JoinColumn({ name: 'id_persona' })
   persona: Persona;

@@ -9,7 +9,6 @@ import {
 } from '@nestjs/common';
 import { CarritoProductoService } from './carrito_producto.service';
 import { CreateCarritoProductoDto } from './dto/create-carrito_producto.dto';
-import { UpdateCarritoProductoDto } from './dto/update-carrito_producto.dto';
 import { CarritoCompraService } from 'src/carrito_compra/carrito_compra.service';
 
 @Controller('carrito-producto')
@@ -21,9 +20,6 @@ export class CarritoProductoController {
 
   @Post()
   create(@Body() createCarritoProductoDto: CreateCarritoProductoDto) {
-    console.log();
-    console.log(createCarritoProductoDto.id_carrito_compra);
-    console.log(createCarritoProductoDto);
     return this.carritoProductoService.create(createCarritoProductoDto);
   }
 
@@ -43,6 +39,8 @@ export class CarritoProductoController {
   }
   @Get('obtener/:id')
   obtenerProductosCarrito(@Param('id') id: number) {
-    return this.carritoCompraService.findAllBy(id);
+    const productos =
+      this.carritoProductoService.obtenerTodosProductosCarrito(id);
+    return productos;
   }
 }

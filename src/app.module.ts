@@ -6,7 +6,6 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { UsuariosModule } from './usuarios/usuarios.module';
 import { RolesModule } from './roles/roles.module';
 import { ProductosModule } from './productos/productos.module';
-import { CategoriasModule } from './categorias/categorias.module';
 import { FacturasModule } from './facturas/facturas.module';
 import { DetalleFacturasModule } from './detalle_facturas/detalle_facturas.module';
 import { TipoPagosModule } from './tipo_pagos/tipo_pagos.module';
@@ -21,6 +20,11 @@ import { AuthModule } from './auth/auth.module';
 import { CarritoCompraModule } from './carrito_compra/carrito_compra.module';
 import { CarritoProductoModule } from './carrito_producto/carrito_producto.module';
 import { CategoriaModule } from './categoria/categoria.module';
+import { MarcaModule } from './marca/marca.module';
+import { PromocionModule } from './promocion/promocion.module';
+import { DescuentoModule } from './descuento/descuento.module';
+import { VentaModule } from './venta/venta.module';
+import { DevolucionModule } from './devolucion/devolucion.module';
 
 @Module({
   imports: [
@@ -39,7 +43,7 @@ import { CategoriaModule } from './categoria/categoria.module';
     UsuariosModule,
     RolesModule,
     ProductosModule,
-    CategoriasModule,
+    CategoriaModule,
     FacturasModule,
     DetalleFacturasModule,
     TipoPagosModule,
@@ -54,6 +58,11 @@ import { CategoriaModule } from './categoria/categoria.module';
     CarritoCompraModule,
     CarritoProductoModule,
     CategoriaModule,
+    MarcaModule,
+    PromocionModule,
+    DescuentoModule,
+    VentaModule,
+    DevolucionModule,
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -19,7 +19,7 @@ export class CreateProductoDto {
   @Optional()
   @MinLength(8)
   imgUrl?: string;
-  @IsNumber()
+  @IsDecimal()
   precio: number;
   @IsString()
   id_categoria: string;

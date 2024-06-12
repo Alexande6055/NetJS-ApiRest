@@ -34,9 +34,10 @@ async function cargarCarrito() {
 
       const productos = await response.json();
       cart = productos.map((producto) => ({
-        id: producto.id_producto,
-        nombre: producto.nombre,
-        precio: producto.precio,
+        id: producto.producto.id_producto,
+        nombre: producto.producto.nombre,
+        cantidad: producto.cantidad,
+        precio: producto.cantidad * producto.producto.precio,
       }));
 
       updateCart();
@@ -60,6 +61,7 @@ function updateCart() {
     const precio = Number(item.precio);
     cartItem.innerHTML = `
       <span>${item.nombre}</span>
+      <span>${item.cantidad}</span>
       <span>$${precio.toFixed(2)}</span>
     `;
 

@@ -25,12 +25,12 @@ async function saveProduct() {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        nombre: nombre1 + '',
-        descripcion: descripcion1 + '',
+        nombre: nombre1 + ' ',
+        descripcion: descripcion1 + ' ',
         imgUrl:
           'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ5_0ad2TMs_rUEGdITOdq24e6r6vyFHixwlA&usqp=CAU',
         precio: precio1,
-        id_categoria: id_categoria + '',
+        id_categoria: id_categoria + ' ',
       }),
     });
 
