@@ -21,6 +21,8 @@ export class Producto {
   descripcion: string;
   @Column({ type: 'varchar', nullable: true })
   imgUrl: string;
+  @Column({ type: 'number', nullable: false, default: 0 })
+  stock: number;
   @ManyToOne(() => Iva)
   @JoinColumn({ name: 'id_iva' })
   iva: Iva;

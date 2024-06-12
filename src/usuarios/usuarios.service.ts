@@ -60,6 +60,9 @@ export class UsuariosService {
       where: { username },
       relations: ['usuarioRoles.id_rol'], // Carga los roles relacionados
     });
+    /*
+    agregar metodo de los descuentos si el descuento no existe entonces no tiene descuento es decir el atributo es null
+    */
     if (!user) {
       throw new NotFoundException('Usuario no encontrado');
     }

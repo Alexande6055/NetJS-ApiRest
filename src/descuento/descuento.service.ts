@@ -1,26 +1,33 @@
 import { Injectable } from '@nestjs/common';
 import { CreateDescuentoDto } from './dto/create-descuento.dto';
 import { UpdateDescuentoDto } from './dto/update-descuento.dto';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Descuento } from './entities/descuento.entity';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class DescuentoService {
+  constructor(
+    @InjectRepository(Descuento)
+    private readonly descuentoRepository: Repository<Descuento>,
+  ) {}
   create(createDescuentoDto: CreateDescuentoDto) {
-    return 'This action adds a new descuento';
+    return this.descuentoRepository.save(createDescuentoDto);
   }
 
   findAll() {
-    return `This action returns all descuento`;
+    return this.descuentoRepository.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} descuento`;
+  findOne(id_descuento: number) {
+    return this.descuentoRepository.findOneBy({ id_descuento });
   }
 
-  update(id: number, updateDescuentoDto: UpdateDescuentoDto) {
-    return `This action updates a #${id} descuento`;
+  update(id_descuento: number, updateDescuentoDto: UpdateDescuentoDto) {
+    return this.descuentoRepository.update(id_descuento, updateDescuentoDto);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} descuento`;
+  remove(id_descuento: number) {
+    return this.descuentoRepository.softDelete(id_descuento);
   }
 }

@@ -1,11 +1,13 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { CarritoCompra } from 'src/carrito_compra/entities/carrito_compra.entity';
+import { Descuento } from 'src/descuento/entities/descuento.entity';
 import { UsuariosRole } from 'src/usuarios_roles/entities/usuarios_role.entity';
 import {
   Column,
   DeleteDateColumn,
   Entity,
   JoinColumn,
+  ManyToOne,
   OneToMany,
   OneToOne,
   PrimaryGeneratedColumn,
@@ -37,4 +39,9 @@ export class Usuario {
   usuarioRoles: UsuariosRole[];
   @DeleteDateColumn()
   deletAt: Date;
+  @ManyToOne(() => Descuento, (descuento) => descuento.porcentaje, {
+    nullable: true,
+  })
+  @JoinColumn({ name: 'id_descuento' })
+  descuento: number;
 }

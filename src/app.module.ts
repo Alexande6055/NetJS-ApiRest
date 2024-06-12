@@ -9,7 +9,6 @@ import { ProductosModule } from './productos/productos.module';
 import { FacturasModule } from './facturas/facturas.module';
 import { DetalleFacturasModule } from './detalle_facturas/detalle_facturas.module';
 import { TipoPagosModule } from './tipo_pagos/tipo_pagos.module';
-import { StockProductosModule } from './stock_productos/stock_productos.module';
 import { IvaModule } from './iva/iva.module';
 import { AutenticacionModule } from './autenticacion/autenticacion.module';
 import { TiposIdentificacionesModule } from './tipos_identificaciones/tipos_identificaciones.module';
@@ -47,7 +46,6 @@ import { DevolucionModule } from './devolucion/devolucion.module';
     FacturasModule,
     DetalleFacturasModule,
     TipoPagosModule,
-    StockProductosModule,
     IvaModule,
     AutenticacionModule,
     TiposIdentificacionesModule,
