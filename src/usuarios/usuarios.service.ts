@@ -5,8 +5,6 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Usuario } from './entities/usuario.entity';
 import { Repository } from 'typeorm';
 import { CarritoCompraService } from 'src/carrito_compra/carrito_compra.service';
-import { UsuariosRole } from 'src/usuarios_roles/entities/usuarios_role.entity';
-import { promises } from 'dns';
 
 @Injectable()
 export class UsuariosService {

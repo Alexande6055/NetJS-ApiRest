@@ -20,6 +20,8 @@ export class Producto {
   descripcion: string;
   @Column({ type: 'varchar', nullable: true })
   imgUrl: string;
+  @Column({ type: 'int', default: 0 })
+  stock: number;
   @ManyToOne(() => DetalleFactura)
   @JoinColumn({ name: 'id_detalle_factura' })
   detalleFactura: DetalleFactura;

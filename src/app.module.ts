@@ -10,7 +10,6 @@ import { CategoriasModule } from './categorias/categorias.module';
 import { FacturasModule } from './facturas/facturas.module';
 import { DetalleFacturasModule } from './detalle_facturas/detalle_facturas.module';
 import { TipoPagosModule } from './tipo_pagos/tipo_pagos.module';
-import { StockProductosModule } from './stock_productos/stock_productos.module';
 import { IvaModule } from './iva/iva.module';
 import { AutenticacionModule } from './autenticacion/autenticacion.module';
 import { TiposIdentificacionesModule } from './tipos_identificaciones/tipos_identificaciones.module';
@@ -21,6 +20,7 @@ import { AuthModule } from './auth/auth.module';
 import { CarritoCompraModule } from './carrito_compra/carrito_compra.module';
 import { CarritoProductoModule } from './carrito_producto/carrito_producto.module';
 import { CategoriaModule } from './categoria/categoria.module';
+import { DescuentoModule } from './descuento/descuento.module';
 
 @Module({
   imports: [
@@ -43,7 +43,6 @@ import { CategoriaModule } from './categoria/categoria.module';
     FacturasModule,
     DetalleFacturasModule,
     TipoPagosModule,
-    StockProductosModule,
     IvaModule,
     AutenticacionModule,
     TiposIdentificacionesModule,
@@ -54,6 +53,7 @@ import { CategoriaModule } from './categoria/categoria.module';
     CarritoCompraModule,
     CarritoProductoModule,
     CategoriaModule,
+    DescuentoModule,
   ],
   controllers: [AppController],
   providers: [AppService],
