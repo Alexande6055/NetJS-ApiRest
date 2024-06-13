@@ -21,6 +21,8 @@ import { CarritoCompraModule } from './carrito_compra/carrito_compra.module';
 import { CarritoProductoModule } from './carrito_producto/carrito_producto.module';
 import { CategoriaModule } from './categoria/categoria.module';
 import { DescuentoModule } from './descuento/descuento.module';
+import { MarcaModule } from './marca/marca.module';
+import { PromocionModule } from './promocion/promocion.module';
 
 @Module({
   imports: [
@@ -54,6 +56,8 @@ import { DescuentoModule } from './descuento/descuento.module';
     CarritoProductoModule,
     CategoriaModule,
     DescuentoModule,
+    MarcaModule,
+    PromocionModule,
   ],
   controllers: [AppController],
   providers: [AppService],

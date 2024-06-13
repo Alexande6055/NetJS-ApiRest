@@ -23,4 +23,6 @@ export class CreateProductoDto {
   precio: number;
   @IsString()
   id_categoria: string;
+  @IsString()
+  id_marca: string;
 }

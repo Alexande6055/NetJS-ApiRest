@@ -5,6 +5,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Producto } from './entities/producto.entity';
 import { Repository } from 'typeorm';
 import { CategoriaService } from 'src/categoria/categoria.service';
+import { MarcaService } from 'src/marca/marca.service';
 
 @Injectable()
 export class ProductosService {
@@ -12,15 +13,20 @@ export class ProductosService {
     @InjectRepository(Producto)
     private readonly productoRepository: Repository<Producto>,
     private readonly categoriaService: CategoriaService,
+    private readonly marcaService: MarcaService,
   ) {}
 
   async create(createProductoDto: CreateProductoDto) {
     const categoria = await this.categoriaService.findByNombre(
       createProductoDto.id_categoria,
     );
+    const marca = await this.marcaService.findOneNombre(
+      createProductoDto.nombre,
+    );
     const producto = await this.productoRepository.create({
       ...createProductoDto,
       id_categoria: categoria,
+      id_marca: marca,
     });
     return this.productoRepository.save(producto);
   }

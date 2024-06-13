@@ -1,6 +1,7 @@
 import { Categoria } from 'src/categorias/entities/categoria.entity';
 import { DetalleFactura } from 'src/detalle_facturas/entities/detalle_factura.entity';
 import { Iva } from 'src/iva/entities/iva.entity';
+import { Marca } from 'src/marca/entities/marca.entity';
 import {
   Column,
   DeleteDateColumn,
@@ -35,4 +36,7 @@ export class Producto {
   @ManyToOne(() => Categoria)
   @JoinColumn({ name: 'id_categoria' })
   id_categoria: Categoria;
+  @ManyToOne(() => Marca)
+  @JoinColumn({ name: 'id_marca' })
+  id_marca: Marca;
 }
