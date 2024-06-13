@@ -4,29 +4,35 @@ import { UpdateProductoDto } from './dto/update-producto.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Producto } from './entities/producto.entity';
 import { Repository } from 'typeorm';
-import { CategoriaService } from 'src/categoria/categoria.service';
 import { MarcaService } from 'src/marca/marca.service';
+import { PromocionService } from 'src/promocion/promocion.service';
+import { CategoriasService } from 'src/categorias/categorias.service';
 
 @Injectable()
 export class ProductosService {
   constructor(
     @InjectRepository(Producto)
     private readonly productoRepository: Repository<Producto>,
-    private readonly categoriaService: CategoriaService,
+    private readonly categoriaService: CategoriasService,
     private readonly marcaService: MarcaService,
+    private readonly promocionService: PromocionService,
   ) {}
 
   async create(createProductoDto: CreateProductoDto) {
     const categoria = await this.categoriaService.findByNombre(
-      createProductoDto.id_categoria,
+      createProductoDto.nombre_categoria,
     );
     const marca = await this.marcaService.findOneNombre(
       createProductoDto.nombre,
+    );
+    const promocion = await this.promocionService.findOneByDescripcion(
+      createProductoDto.descripcion_promocion,
     );
     const producto = await this.productoRepository.create({
       ...createProductoDto,
       id_categoria: categoria,
       id_marca: marca,
+      id_promocion: promocion,
     });
     return this.productoRepository.save(producto);
   }
@@ -39,8 +45,8 @@ export class ProductosService {
     return this.productoRepository.findOneBy({ id_producto });
   }
 
-  update(id: number, updateProductoDto: UpdateProductoDto) {
-    return `This action updates a #${id} producto`;
+  update(id_producto: number, updateProductoDto: UpdateProductoDto) {
+    return this.productoRepository.update(id_producto, updateProductoDto);
   }
 
   remove(id: number) {

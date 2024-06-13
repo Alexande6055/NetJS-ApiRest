@@ -19,7 +19,6 @@ import { RolesMenusModule } from './roles_menus/roles_menus.module';
 import { AuthModule } from './auth/auth.module';
 import { CarritoCompraModule } from './carrito_compra/carrito_compra.module';
 import { CarritoProductoModule } from './carrito_producto/carrito_producto.module';
-import { CategoriaModule } from './categoria/categoria.module';
 import { DescuentoModule } from './descuento/descuento.module';
 import { MarcaModule } from './marca/marca.module';
 import { PromocionModule } from './promocion/promocion.module';
@@ -54,7 +53,6 @@ import { PromocionModule } from './promocion/promocion.module';
     AuthModule,
     CarritoCompraModule,
     CarritoProductoModule,
-    CategoriaModule,
     DescuentoModule,
     MarcaModule,
     PromocionModule,

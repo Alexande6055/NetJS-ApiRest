@@ -15,7 +15,6 @@ export class Categoria {
   @Column({ type: 'varchar', nullable: false })
   nombre: string;
 
-  @ManyToOne(() => Producto, (producto) => producto.id_producto)
-  @JoinColumn({ name: 'id_producto' })
-  id_producto: number;
+  @Column({ type: 'varchar', nullable: false })
+  descripcion: string;
 }

@@ -2,6 +2,7 @@ import { Categoria } from 'src/categorias/entities/categoria.entity';
 import { DetalleFactura } from 'src/detalle_facturas/entities/detalle_factura.entity';
 import { Iva } from 'src/iva/entities/iva.entity';
 import { Marca } from 'src/marca/entities/marca.entity';
+import { Promocion } from 'src/promocion/entities/promocion.entity';
 import {
   Column,
   DeleteDateColumn,
@@ -39,4 +40,7 @@ export class Producto {
   @ManyToOne(() => Marca)
   @JoinColumn({ name: 'id_marca' })
   id_marca: Marca;
+  @ManyToOne(() => Promocion, { nullable: true })
+  @JoinColumn({ name: 'id_promocion' })
+  id_promocion: Promocion;
 }

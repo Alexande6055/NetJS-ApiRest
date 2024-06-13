@@ -1,26 +1,36 @@
 import { Injectable } from '@nestjs/common';
 import { CreateCategoriaDto } from './dto/create-categoria.dto';
 import { UpdateCategoriaDto } from './dto/update-categoria.dto';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Categoria } from './entities/categoria.entity';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class CategoriasService {
+  constructor(
+    @InjectRepository(Categoria)
+    private readonly categoriaRepository: Repository<Categoria>,
+  ) {}
   create(createCategoriaDto: CreateCategoriaDto) {
-    return 'This action adds a new categoria';
+    return this.categoriaRepository.save(createCategoriaDto);
   }
 
   findAll() {
-    return `This action returns all categorias`;
+    return this.categoriaRepository.find();
+  }
+  findByNombre(nombre: string) {
+    return this.categoriaRepository.findOneBy({ nombre });
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} categoria`;
+  findOne(id_categoria: number) {
+    return this.categoriaRepository.findOneBy({ id_categoria });
   }
 
-  update(id: number, updateCategoriaDto: UpdateCategoriaDto) {
-    return `This action updates a #${id} categoria`;
+  update(id_categoria: number, updateCategoriaDto: UpdateCategoriaDto) {
+    return this.update(id_categoria, updateCategoriaDto);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} categoria`;
+  remove(id_categoria: number) {
+    return this.categoriaRepository.softDelete(id_categoria);
   }
 }
