@@ -14,6 +14,7 @@ import {
 export class Factura {
   @PrimaryGeneratedColumn()
   id_factura: number;
+  codigo_factura: 'f000';
   @Column({ type: 'date', nullable: false })
   fecha: Date;
   @OneToOne(() => DetalleFactura)
@@ -26,6 +27,6 @@ export class Factura {
   @JoinColumn({ name: 'id_pago' })
   tipoPago: TipoPago;
   @Column({ type: 'decimal', nullable: false, precision: 10, scale: 4 })
-  totalFactura: Double;
+  totalFactura: number;
   //insertar relacion al id sucursal
 }
