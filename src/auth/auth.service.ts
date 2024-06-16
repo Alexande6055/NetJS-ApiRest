@@ -69,6 +69,14 @@ export class AuthService {
     const user = await this.usuarioService.findByOneByUserName(username);
     return { user, rol };
   }
+  async verificacion(token: string): Promise<boolean> {
+    try {
+      this.jwtService.verify(token);
+      return true;
+    } catch (err) {
+      return false;
+    }
+  }
 }
 
 //JWT--------------------------------------------------

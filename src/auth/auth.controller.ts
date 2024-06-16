@@ -1,12 +1,20 @@
-import { Body, Controller, Get, Post, Req, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Header,
+  Headers,
+  Post,
+  Req,
+  UseGuards,
+} from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { RegisterDto } from './dto/register.dto';
 import { LoginDto } from './dto/Login.dto';
-import { AuthGuard } from './guard/auth.guard';
 import { CreateProductoDto } from 'src/productos/dto/create-producto.dto';
 import { Request } from 'express';
-import { Roles } from './decorators/roles.decorator';
-import { RolesGuard } from './guard/roles.guard';
+import { Role } from './enums/rol.enum';
+import { Auth } from './decorators/auth.decorator';
 //separar modulo interface
 interface RequestWithUser extends Request {
   user: {
@@ -18,6 +26,13 @@ interface RequestWithUser extends Request {
 @Controller('auth')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
+
+  //pruebas
+  @Post('productos')
+  productos(@Body() createProductoDto: CreateProductoDto) {
+    return this.authService.productos(createProductoDto);
+  }
+
   @Post('register')
   register(@Body() registerDto: RegisterDto) {
     return this.authService.register(registerDto);
@@ -29,18 +44,22 @@ export class AuthController {
   }
   //implementacion de Autenticacion por jwt
   @Get('profile')
-  @Roles(['admin'])
-  @UseGuards(AuthGuard, RolesGuard)
+  //@Roles([Role.ADMIN])
+  //carga el canActive del AuthGuard y lo usa el RolesGuard
+  //@UseGuards(AuthGuard, RolesGuard)
+  @Auth(Role.ADMIN)
   profile(@Req() req: RequestWithUser) {
     return this.authService.profile({
       username: req.user.username,
       rol: req.user.role,
     });
   }
-
-  //pruebas
-  @Post('productos')
-  productos(@Body() createProductoDto: CreateProductoDto) {
-    return this.authService.productos(createProductoDto);
+  @Get('verificacion')
+  verificacion(@Headers('authorization') authHeader: string) {
+    const token = authHeader?.split(' ')[1];
+    if (!token) {
+      throw new Error('Token no proporcionado');
+    }
+    return this.authService.verificacion(token);
   }
 }

@@ -19,4 +19,6 @@ export class RolesMenu {
   @ManyToOne(() => Menu)
   @JoinColumn({ name: 'id_menu' })
   id_menu: Menu;
+  @OneToMany(() => Menu, (menu) => menu.id_menu, { eager: true })
+  menus: Menu[];
 }

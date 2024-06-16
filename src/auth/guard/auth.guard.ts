@@ -11,6 +11,7 @@ import { jwtConstants } from '../constants/jwt.constant';
 @Injectable()
 export class AuthGuard implements CanActivate {
   constructor(private readonly jwtService: JwtService) {}
+
   async canActivate(context: ExecutionContext): Promise<boolean> {
     const request = context.switchToHttp().getRequest();
 
@@ -21,6 +22,7 @@ export class AuthGuard implements CanActivate {
     }
 
     try {
+      //verificacion de token valido
       const payload = await this.jwtService.verifyAsync(token, {
         secret: jwtConstants.secret,
       });
