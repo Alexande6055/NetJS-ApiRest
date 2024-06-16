@@ -1,6 +1,12 @@
 import { Menu } from 'src/menus/entities/menu.entity';
 import { Role } from 'src/roles/entities/role.entity';
-import { Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  OneToMany,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 
 @Entity('roles_menus')
 export class RolesMenu {

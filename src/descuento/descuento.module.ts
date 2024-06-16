@@ -8,5 +8,6 @@ import { Descuento } from './entities/descuento.entity';
   imports: [TypeOrmModule.forFeature([Descuento])],
   controllers: [DescuentoController],
   providers: [DescuentoService],
+  exports: [DescuentoService],
 })
 export class DescuentoModule {}

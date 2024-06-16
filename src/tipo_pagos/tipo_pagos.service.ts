@@ -1,26 +1,33 @@
 import { Injectable } from '@nestjs/common';
 import { CreateTipoPagoDto } from './dto/create-tipo_pago.dto';
 import { UpdateTipoPagoDto } from './dto/update-tipo_pago.dto';
+import { InjectRepository } from '@nestjs/typeorm';
+import { TipoPago } from './entities/tipo_pago.entity';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class TipoPagosService {
+  constructor(
+    @InjectRepository(TipoPago)
+    private readonly tipoPagoRepository: Repository<TipoPago>,
+  ) {}
   create(createTipoPagoDto: CreateTipoPagoDto) {
-    return 'This action adds a new tipoPago';
+    return this.tipoPagoRepository.save(createTipoPagoDto);
   }
 
   findAll() {
-    return `This action returns all tipoPagos`;
+    return this.tipoPagoRepository.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} tipoPago`;
+  findOne(id_pago: number) {
+    return this.tipoPagoRepository.findOneBy({ id_pago });
   }
 
-  update(id: number, updateTipoPagoDto: UpdateTipoPagoDto) {
-    return `This action updates a #${id} tipoPago`;
+  update(id_pago: number, updateTipoPagoDto: UpdateTipoPagoDto) {
+    return this.tipoPagoRepository.update(id_pago, updateTipoPagoDto);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} tipoPago`;
+  remove(id_pago: number) {
+    return this.tipoPagoRepository.softDelete(id_pago);
   }
 }

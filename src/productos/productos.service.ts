@@ -25,9 +25,10 @@ export class ProductosService {
     const marca = await this.marcaService.findOneNombre(
       createProductoDto.nombre,
     );
-    const promocion = await this.promocionService.findOneByDescripcion(
-      createProductoDto.descripcion_promocion,
-    );
+    const promocion =
+      createProductoDto.id_promocion == null
+        ? null
+        : await this.promocionService.findOne(createProductoDto.id_promocion);
     const producto = await this.productoRepository.create({
       ...createProductoDto,
       id_categoria: categoria,
@@ -45,8 +46,24 @@ export class ProductosService {
     return this.productoRepository.findOneBy({ id_producto });
   }
 
-  update(id_producto: number, updateProductoDto: UpdateProductoDto) {
-    return this.productoRepository.update(id_producto, updateProductoDto);
+  async update(id_producto: number, updateProductoDto: UpdateProductoDto) {
+    const promocion =
+      updateProductoDto.id_promocion == null
+        ? null
+        : await this.promocionService.findOne(updateProductoDto.id_promocion);
+    const categoria = await this.categoriaService.findByNombre(
+      updateProductoDto.nombre_categoria,
+    );
+    const marca = await this.marcaService.findOneNombre(
+      updateProductoDto.nombre,
+    );
+    const producto = await this.productoRepository.create({
+      ...updateProductoDto,
+      id_categoria: categoria,
+      id_marca: marca,
+      id_promocion: promocion,
+    });
+    return this.productoRepository.update(id_producto, producto);
   }
 
   remove(id: number) {

@@ -9,7 +9,6 @@ import {
 } from '@nestjs/common';
 import { CarritoProductoService } from './carrito_producto.service';
 import { CreateCarritoProductoDto } from './dto/create-carrito_producto.dto';
-import { UpdateCarritoProductoDto } from './dto/update-carrito_producto.dto';
 import { CarritoCompraService } from 'src/carrito_compra/carrito_compra.service';
 
 @Controller('carrito-producto')

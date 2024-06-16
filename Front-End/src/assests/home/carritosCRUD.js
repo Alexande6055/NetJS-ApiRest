@@ -26,7 +26,7 @@ async function cargarCarrito() {
   if (!isNaN(id_carrito)) {
     try {
       const response = await fetch(
-        `http://localhost:8000/api/carrito-producto/obtener/${id_carrito}`,
+        'http://localhost:8000/api/carrito-producto/obtener/' + id_carrito,
       );
       if (!response.ok) {
         throw new Error('Failed to fetch cart products');

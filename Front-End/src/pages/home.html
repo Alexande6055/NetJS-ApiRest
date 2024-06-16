@@ -6,52 +6,119 @@
     <title>Home - Productos</title>
     <link rel="stylesheet" href="../assests/css/bodyHome.css" />
     <link rel="stylesheet" href="../assests/css/cartHome.css" />
-    <link rel="stylesheet" href="../assests/css/headerHome.css" />
+    <link rel="stylesheet" href="../assests/css/barra.css" />
     <link rel="stylesheet" href="../assests/css/productHome.css" />
   </head>
   <body>
-    <header>
-      <button id="cart-button">
-        <img
-          class="carrito"
-          src="../assests/img/cart-shopping-solid.svg"
-          width="25px"
-          height="25px"
-          alt="Carrito"
-        />
-        <span id="cart-count">0</span>
-      </button>
-      <button id="administrar-button">
-        <img src="../assets/icons/cart-icon.svg" alt="Administrar" />
-      </button>
-      <button id="rol-button">
-        <img src="../assets/icons/cart-icon.svg" alt="Rol" />
-      </button>
-      <button id="perfil-button">
-        <img src="../assets/icons/cart-icon.svg" alt="perfil" />
-      </button>
-      <a href="buscar.html"
-        ><img
-          class="lupa"
-          src="../assests/img/magnifying-glass-solid.svg"
-          width="25px"
-          height="25px"
-          alt="buscador"
-      /></a>
-    </header>
-    <div class="product-container">
-      <h2>Productos</h2>
-      <div id="product-list"></div>
-    </div>
-    <div id="cart" class="hidden">
-      <h2>Carrito de Compras</h2>
-      <div id="cart-items"></div>
-      <button id="checkout-button">Proceder al pago</button>
-      <button id="cerrar_carrito">x</button>
+    <div class="container">
+      <aside class="sidebar">
+        <div class="logo">
+          <img
+            src="https://logos-download.com/wp-content/uploads/2020/06/Oatly_Logo.png"
+            alt="Logo"
+          />
+        </div>
+        <button id="cart-button">
+          <img
+            class="icon"
+            src="../assests/images/cart-icon.png"
+            alt="Carrito"
+          />
+          <span>Carrito</span>
+          <span id="cart-count">0</span>
+        </button>
+        <button id="administrar-button">
+          <img
+            class="icon"
+            src="../assests/images/administrar-icon.png"
+            alt="Administrar"
+          />
+          <span>Administrar</span>
+        </button>
+        <button id="rol-button">
+          <img class="icon" src="../assests/images/rol-icon.png" alt="Rol" />
+          <span>Roles</span>
+        </button>
+        <button id="productos-button">
+          <img
+            class="icon"
+            src="../assests/images/producto-icon.png"
+            alt="Productos"
+          />
+          <span>Productos</span>
+        </button>
+        <button id="perfil-button">
+          <img
+            class="icon"
+            src="../assests/images/perfil-icon.png"
+            alt="Perfil"
+          />
+          <span>Perfil</span>
+        </button>
+        <button id="categoria-button">
+          <img
+            class="icon"
+            src="../assests/images/categoria-icon.png"
+            alt="Categoría"
+          />
+          <span>Categorías</span>
+        </button>
+        <button id="promociones-button">
+          <img
+            class="icon"
+            src="../assests/images/ofertas-icon.png"
+            alt="Promociones"
+          />
+          <span>Promociones</span>
+        </button>
+        <button id="pagos-button">
+          <img
+            class="icon"
+            src="../assests/images/pagos-icon.png"
+            alt="Tipos de Pagos"
+          />
+          <span>Tipos de Pagos</span>
+        </button>
+        <button id="identificacion">
+          <img
+            class="icon"
+            src="../assests/images/identificacion-icon.png"
+            alt="Identificaciones"
+          />
+          <span>Identificaciones</span>
+        </button>
+        <button id="marca">
+          <img
+            class="icon"
+            src="../assests/images/marca-icon.png"
+            alt="Identificaciones"
+          />
+          <span>Marcas</span>
+        </button>
+        <a href="buscar.html">
+          <img
+            class="icon"
+            src="../assests/images/buscar-icon.png"
+            alt="Buscador"
+          />
+          <span>Buscar</span>
+        </a>
+      </aside>
+      <main class="main-content">
+        <div class="product-container">
+          <h2>Productos</h2>
+          <div id="product-list"></div>
+        </div>
+        <div id="cart" class="hidden">
+          <h2>Carrito de Compras</h2>
+          <div id="cart-items"></div>
+          <button id="checkout-button">Proceder al pago</button>
+          <button id="cerrar_carrito">x</button>
+        </div>
+      </main>
     </div>
     <script type="module" src="../assests/home/homeScript.js"></script>
     <script type="module" src="../assests/js/validacion.js"></script>
-
     <script type="module" src="../assests/home/redirecciones.js"></script>
   </body>
 </html>

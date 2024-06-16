@@ -1,12 +1,6 @@
 import { Optional } from '@nestjs/common';
 import { Transform } from 'class-transformer';
-import {
-  IsDecimal,
-  IsNumber,
-  IsString,
-  Length,
-  MinLength,
-} from 'class-validator';
+import { IsNumber, IsString, MinLength } from 'class-validator';
 
 export class CreateProductoDto {
   @IsString()
@@ -25,6 +19,6 @@ export class CreateProductoDto {
   nombre_categoria: string;
   @IsString()
   nombre_marca: string;
-  @IsString()
-  descripcion_promocion: string;
+  @IsNumber()
+  id_promocion: number;
 }

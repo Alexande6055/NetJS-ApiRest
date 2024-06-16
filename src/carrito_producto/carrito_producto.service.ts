@@ -13,17 +13,26 @@ export class CarritoProductoService {
     private readonly carritoProductoRepository: Repository<CarritoComprasProducto>,
     private readonly productoService: ProductosService,
   ) {}
-  async create(createCarritoProductoDto: CreateCarritoProductoDto) {
-    const produc = await this.productoService.findOne(
-      createCarritoProductoDto.id_producto,
-    );
-    const carrito_produc = await this.carritoProductoRepository.create({
-      ...createCarritoProductoDto,
-      id_producto: produc,
-    });
-    return this.carritoProductoRepository.save(carrito_produc);
-  }
 
+  async create(createCarritoProductoDto: CreateCarritoProductoDto) {
+    let carritoProducto = await this.carritoProductoRepository.findOne({
+      where: {
+        id_carrito_compra: createCarritoProductoDto.id_carrito_compra,
+        id_producto: createCarritoProductoDto.id_producto,
+      },
+    });
+    if (carritoProducto) {
+      carritoProducto.cantidad++; // Incrementar la cantidad
+      const carritoCompPro =
+        this.carritoProductoRepository.create(carritoProducto);
+      this.carritoProductoRepository.update(
+        carritoProducto.id_carrito_producto,
+        carritoCompPro,
+      );
+    } else {
+      return this.carritoProductoRepository.save(createCarritoProductoDto); // Guardar o actualizar
+    }
+  }
   findAll() {
     return this.carritoProductoRepository.find();
   }

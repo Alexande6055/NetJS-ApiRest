@@ -4,6 +4,7 @@ import {
   IsDecimal,
   IsDateString,
   IsDate,
+  IsNumber,
 } from 'class-validator';
 
 export class CreatePromocionDto {
@@ -15,11 +16,11 @@ export class CreatePromocionDto {
   @IsNotEmpty()
   descuento: number;
 
-  @IsDate()
+  @IsDateString()
   @IsNotEmpty()
   fecha_inicio: string;
 
-  @IsDate()
+  @IsDateString()
   @IsNotEmpty()
   fecha_fin: string;
 }

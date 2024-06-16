@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Categorías</title>
+    <link rel="stylesheet" href="../assests/css/barra.css" />
+    <link rel="stylesheet" href="../assests/categoria/estilos.css" />
+    <link rel="stylesheet" href="../assests/distribucion.css" />
+  </head>
+  <body>
+    <div class="container">
+      <aside class="sidebar">
+        <div class="logo">
+          <img
+          id="logo"
+          src="https://logos-download.com/wp-content/uploads/2020/06/Oatly_Logo.png"
+            alt="Logo"
+          />
+        </div>
+        <button id="cart-button">
+          <img
+            class="icon"
+            src="../assests/images/cart-icon.png"
+            alt="Carrito"
+          />
+          <span>Carrito</span>
+          <span id="cart-count">0</span>
+        </button>
+        <button id="administrar-button">
+          <img
+            class="icon"
+            src="../assests/images/administrar-icon.png"
+            alt="Administrar"
+          />
+          <span>Administrar</span>
+        </button>
+        <button id="rol-button">
+          <img class="icon" src="../assests/images/rol-icon.png" alt="Rol" />
+          <span>Roles</span>
+        </button>
+        <button id="productos-button">
+          <img
+            class="icon"
+            src="../assests/images/producto-icon.png"
+            alt="Productos"
+          />
+          <span>Productos</span>
+        </button>
+        <button id="perfil-button">
+          <img
+            class="icon"
+            src="../assests/images/perfil-icon.png"
+            alt="Perfil"
+          />
+          <span>Perfil</span>
+        </button>
+        <button id="categoria-button">
+          <img
+            class="icon"
+            src="../assests/images/categoria-icon.png"
+            alt="Categoría"
+          />
+          <span>Categorías</span>
+        </button>
+        <button id="promociones-button">
+          <img
+            class="icon"
+            src="../assests/images/ofertas-icon.png"
+            alt="Promociones"
+          />
+          <span>Promociones</span>
+        </button>
+        <button id="pagos-button">
+          <img
+            class="icon"
+            src="../assests/images/pagos-icon.png"
+            alt="Tipos de Pagos"
+          />
+          <span>Tipos de Pagos</span>
+        </button>
+        <button id="identificacion">
+          <img
+            class="icon"
+            src="../assests/images/identificacion-icon.png"
+            alt="Identificaciones"
+          />
+          <span>Identificaciones</span>
+        </button>
+        <button id="marca">
+          <img
+            class="icon"
+            src="../assests/images/marca-icon.png"
+            alt="Identificaciones"
+          />
+          <span>Marcas</span>
+        </button>
+        <a href="buscar.html">
+          <img
+            class="icon"
+            src="../assests/images/buscar-icon.png"
+            alt="Buscador"
+          />
+          <span>Buscar</span>
+        </a>
+      </aside>
+      <main class="main-content">
+        <h1>Categorías</h1>
+        <form id="category-form">
+          <input
+            type="text"
+            id="category-name"
+            placeholder="Nombre de la categoría"
+            required
+          />
+          <input
+            type="text"
+            id="category-description"
+            placeholder="Descripción de la categoría"
+            required
+          />
+          <button type="submit">Crear Categoría</button>
+        </form>
+        <ul id="categories-list"></ul>
+      </main>
+    </div>
+    <script src="../assests/categoria/consultas.js"></script>
+    <script src="../assests/home/redirecciones.js"></script>
+  </body>
+  </body>
+</html>

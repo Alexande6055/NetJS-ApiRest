@@ -33,7 +33,7 @@ export class UsuariosService {
   }
 
   findAll(): Promise<Usuario[]> {
-    return this.usuarioRepository.find();
+    return this.usuarioRepository.find({ relations: ['usuarioRoles.id_rol'] });
   }
 
   findOne(id_usuario: number) {

@@ -39,10 +39,9 @@ export class Usuario {
   usuarioRoles: UsuariosRole[];
   @DeleteDateColumn()
   deletAt: Date;
-
   @ManyToOne(() => Descuento, (descuento) => descuento.id_descuento, {
     nullable: true,
   })
   @JoinColumn({ name: 'id_descuento' })
-  id_descuento: number;
+  descuento: number;
 }

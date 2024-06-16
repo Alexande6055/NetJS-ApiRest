@@ -1,4 +1,9 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  DeleteDateColumn,
+  Entity,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 
 @Entity('tipo_pagos')
 export class TipoPago {
@@ -6,5 +11,6 @@ export class TipoPago {
   id_pago: number;
   @Column({ type: 'varchar', nullable: false })
   nombrePago: string;
-  //crear relacion con una tabla pagos
+  @DeleteDateColumn({ name: 'deleted_at' })
+  deletedAt: Date;
 }

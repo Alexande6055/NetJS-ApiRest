@@ -1,7 +1,6 @@
 import { cargarCarrito } from './carritosCRUD.js';
-import { agregarProducto } from '/Front-End/src/assests/home/carritosCRUD.js';
+import { agregarProducto } from './carritosCRUD.js';
 
-// Cargar datos del backend al front end
 document.addEventListener('DOMContentLoaded', async function () {
   try {
     const response = await fetch('http://localhost:8000/api/productos');
@@ -13,19 +12,17 @@ document.addEventListener('DOMContentLoaded', async function () {
     const productList = document.getElementById('product-list');
 
     products.forEach((product) => {
-      // Asegurarse de que el precio sea un número y redondearlo a 2 decimales
-      const precio = parseFloat(product.precio);
-      const precioRedondeado = precio.toFixed(2);
+      const precio = parseFloat(product.precio).toFixed(2);
 
       const productCard = document.createElement('div');
       productCard.className = 'product-card';
       productCard.innerHTML = `
-        <img src="${product.imgUrl}" alt="${product.nombre}">
-        <h3 id="precio_producto">${product.nombre}</h3>
-        <p>${product.descripcion}</p>
-        <p class="price">$${precioRedondeado}</p>
-        <button data-id="${product.id_producto}">Comprar</button>
-      `;
+                <img src="${product.imgUrl}" alt="${product.nombre}">
+                <h3 id="precio_producto">${product.nombre}</h3>
+                <p>${product.descripcion}</p>
+                <p class="price">$${precio}</p>
+                <button data-id="${product.id_producto}">Comprar</button>
+            `;
 
       productList.appendChild(productCard);
     });
@@ -48,8 +45,6 @@ async function addToCart(productId) {
   cargarCarrito();
 }
 
-//seleccionar boton car
-//-----------------------
 document.getElementById('cart-button').addEventListener('click', function () {
   ocultarMostrarCarrito();
 });
@@ -59,7 +54,7 @@ function ocultarMostrarCarrito() {
   botton_carrito.classList.toggle('hidden');
   botton_carrito.classList.toggle('visible');
 }
-//cerrar barra car
+
 document
   .getElementById('cerrar_carrito')
   .addEventListener('click', function () {

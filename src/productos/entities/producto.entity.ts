@@ -24,16 +24,11 @@ export class Producto {
   imgUrl: string;
   @Column({ type: 'int', default: 0 })
   stock: number;
-  @ManyToOne(() => DetalleFactura)
-  @JoinColumn({ name: 'id_detalle_factura' })
-  detalleFactura: DetalleFactura;
   @ManyToOne(() => Iva)
   @JoinColumn({ name: 'id_iva' })
   iva: Iva;
   @Column({ type: 'decimal', nullable: true, precision: 10, scale: 4 })
   precio: number;
-  @DeleteDateColumn()
-  deletAt: Date;
   @ManyToOne(() => Categoria)
   @JoinColumn({ name: 'id_categoria' })
   id_categoria: Categoria;
@@ -43,4 +38,6 @@ export class Producto {
   @ManyToOne(() => Promocion, { nullable: true })
   @JoinColumn({ name: 'id_promocion' })
   id_promocion: Promocion;
+  @DeleteDateColumn({ name: 'deleted_at' }) // Columna para la fecha de eliminación suave
+  deletedAt: Date;
 }

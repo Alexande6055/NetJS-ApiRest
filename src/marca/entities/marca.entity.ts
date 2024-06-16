@@ -1,4 +1,9 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  DeleteDateColumn,
+  Entity,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 
 @Entity('Marcas')
 export class Marca {
@@ -8,4 +13,6 @@ export class Marca {
   nombre: string;
   @Column({ type: 'varchar', nullable: false })
   descripcion: string;
+  @DeleteDateColumn({ name: 'deleted_at' }) // Columna para la fecha de eliminación suave
+  deletedAt: Date;
 }

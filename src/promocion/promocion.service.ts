@@ -30,6 +30,6 @@ export class PromocionService {
   }
 
   remove(id_promocion: number) {
-    return this.promocionRepository.softDelete(id_promocion);
+    return this.promocionRepository.delete(id_promocion);
   }
 }

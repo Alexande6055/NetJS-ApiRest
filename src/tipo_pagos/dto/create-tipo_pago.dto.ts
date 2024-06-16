@@ -1,1 +1,6 @@
-export class CreateTipoPagoDto {}
+import { IsString } from 'class-validator';
+
+export class CreateTipoPagoDto {
+  @IsString()
+  nombrePago: string;
+}
