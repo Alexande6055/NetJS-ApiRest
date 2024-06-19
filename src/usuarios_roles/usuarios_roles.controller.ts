@@ -20,27 +20,21 @@ export class UsuariosRolesController {
     return this.usuariosRolesService.create(createUsuariosRoleDto);
   }
 
-  @Get()
-  findAll() {
-    return this.usuariosRolesService.findAll();
-  }
-
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.usuariosRolesService.findOne(+id);
+  findOne(@Param('id') id: number) {
+    return this.usuariosRolesService.findOne(id);
   }
 
-  @Patch(':id')
-  update(
-    @Param('id') id: string,
-    @Body() updateUsuariosRoleDto: UpdateUsuariosRoleDto,
-  ) {
-    return this.usuariosRolesService.update(+id, updateUsuariosRoleDto);
+  @Get('obtenerroles/:id')
+  ObtenerRoles(@Param('id') id: number) {
+    return this.usuariosRolesService.findAllRols(id);
   }
-  /*
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.usuariosRolesService.remove(+id);
-    }
-  */
+
+  @Post('actualizarroles/:id')
+  async actualizarRoles(
+    @Param('id') id: number,
+    @Body() body: { roleIds: number[] },
+  ) {
+    return this.usuariosRolesService.actualizarRoles(id, body.roleIds);
+  }
 }

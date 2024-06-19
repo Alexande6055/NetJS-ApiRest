@@ -1,3 +1,5 @@
+const token = localStorage.getItem('authToken');
+
 document.addEventListener('DOMContentLoaded', () => {
   const apiUrl = 'http://localhost:8000/api/marca'; // URL de la API
   const form = document.getElementById('brand-form');
@@ -5,10 +7,17 @@ document.addEventListener('DOMContentLoaded', () => {
   const descriptionInput = document.getElementById('brand-description');
   const list = document.getElementById('brands-list');
 
+  // Obtener el token almacenado
+  const token = localStorage.getItem('authToken');
+
   // Función para obtener y mostrar las marcas
   const fetchBrands = async () => {
     try {
-      const response = await fetch(apiUrl);
+      const response = await fetch(apiUrl, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       const data = await response.json();
       list.innerHTML = '';
       data.forEach((brand) => {
@@ -32,6 +41,7 @@ document.addEventListener('DOMContentLoaded', () => {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify({ nombre, descripcion }),
       });
@@ -52,6 +62,9 @@ document.addEventListener('DOMContentLoaded', () => {
     try {
       const response = await fetch(`${apiUrl}/${id}`, {
         method: 'DELETE',
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
       });
       if (response.ok) {
         fetchBrands();

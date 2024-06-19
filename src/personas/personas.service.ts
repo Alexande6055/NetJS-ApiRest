@@ -43,7 +43,9 @@ export class PersonasService {
   }
 
   async findAll() {
-    return await this.personaRepository.find();
+    return await this.personaRepository.find({
+      relations: ['id_usuario'],
+    });
   }
 
   async findOne(id_persona: number) {

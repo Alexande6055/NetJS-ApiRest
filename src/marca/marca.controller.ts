@@ -10,12 +10,15 @@ import {
 import { MarcaService } from './marca.service';
 import { CreateMarcaDto } from './dto/create-marca.dto';
 import { UpdateMarcaDto } from './dto/update-marca.dto';
+import { Auth } from 'src/auth/decorators/auth.decorator';
+import { Role } from 'src/auth/enums/rol.enum';
 
 @Controller('marca')
 export class MarcaController {
   constructor(private readonly marcaService: MarcaService) {}
 
   @Post()
+  @Auth(Role.DIRECTOR)
   create(@Body() createMarcaDto: CreateMarcaDto) {
     return this.marcaService.create(createMarcaDto);
   }

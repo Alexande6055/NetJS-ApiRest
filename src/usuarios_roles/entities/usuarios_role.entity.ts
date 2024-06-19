@@ -15,4 +15,3 @@ export class UsuariosRole {
   @JoinColumn({ name: 'id_rol' })
   id_rol: Role;
 }
-//1:32:00

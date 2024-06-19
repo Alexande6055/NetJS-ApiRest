@@ -1,12 +1,11 @@
 <!doctype html>
-<html lang="en">
+<html lang="es">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Gestión de Roles</title>
-    <link rel="stylesheet" href="../assests/rol/listaRol.css" />
+    <title>Asignar Roles a Usuario</title>
 
-    <link rel="stylesheet" href="../assests/from.css" />
+    <link rel="stylesheet" href="../assests/asignarRoles/stilos.css" />
     <link rel="stylesheet" href="../assests/css/barra.css" />
     <link rel="stylesheet" href="../assests/distribucion.css" />
   </head>
@@ -107,21 +106,34 @@
         </button>
       </aside>
       <main class="main-content">
-        <h1>Gestión de Roles</h1>
-        <form id="roleForm">
-          <input type="text" id="roleName" placeholder="Nombre del Rol" />
-          <button id="crearRol" type="submit">Agregar Rol</button>
+        <h1>Asignar Roles a Usuario</h1>
+        <form id="userForm">
+          <label for="username">Seleccionar Usuario:</label>
+          <select id="username" name="username" required>
+            <!-- Opciones de usuarios cargadas dinámicamente -->
+          </select>
         </form>
-        <div id="rolesList">
-          <!-- Aquí se mostrará la lista de roles -->
+
+        <div id="userDetails">
+          <h2>Detalles del Usuario</h2>
+          <p><strong>Nombre:</strong> <span id="nombre"></span></p>
+          <p><strong>Email:</strong> <span id="email"></span></p>
+          <p><strong>Teléfono:</strong> <span id="telefono"></span></p>
+        </div>
+
+        <div id="rolesSection">
+          <h2>Roles del Usuario</h2>
+          <form id="rolesForm">
+            <div id="rolesList">
+              <!-- Lista de roles cargada dinámicamente -->
+            </div>
+            <button type="submit">Actualizar Roles</button>
+          </form>
         </div>
       </main>
     </div>
-    <script src="/Front-End/src/assests/rol/datos.js" type="module"></script>
-    <script
-      src="/Front-End/src/assests/rol/actualizar.js"
-      type="module"
-    ></script>
+
+    <script src="../assests/asignarRoles/consultas.js"></script>
     <script src="../assests/home/redirecciones.js"></script>
   </body>
 </html>

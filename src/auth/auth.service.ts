@@ -40,12 +40,15 @@ export class AuthService {
     });
   }
 
-  async login({ password, username }: LoginDto) {
-    const user = await this.usuarioService.findByOneByUserName(username);
+  async login(login: LoginDto) {
+    const user = await this.usuarioService.findByOneByUserName(login.username);
     if (!user) {
       throw new UnauthorizedException('Usuario no Encontrado');
     }
-    const isPasswordValid = await bcryptjs.compare(password, user.password);
+    const isPasswordValid = await bcryptjs.compare(
+      login.password,
+      user.password,
+    );
     if (!isPasswordValid) {
       throw new UnauthorizedException('Contraseña incorrecta');
     }

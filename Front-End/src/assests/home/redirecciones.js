@@ -37,3 +37,9 @@ document
 document.getElementById('logo').addEventListener('click', function () {
   window.location.href = '/Front-End/src/pages/home.html';
 });
+document.getElementById('marca').addEventListener('click', function () {
+  window.location.href = '/Front-End/src/pages/Marca.html';
+});
+document.getElementById('asignarRoles').addEventListener('click', function () {
+  window.location.href = '/Front-End/src/pages/AsignarRoles.html';
+});
