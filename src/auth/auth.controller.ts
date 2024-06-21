@@ -15,6 +15,7 @@ import { CreateProductoDto } from 'src/productos/dto/create-producto.dto';
 import { Request } from 'express';
 import { Role } from './enums/rol.enum';
 import { Auth } from './decorators/auth.decorator';
+import { ApiBody, ApiHeader, ApiOperation, ApiTags } from '@nestjs/swagger';
 //separar modulo interface
 interface RequestWithUser extends Request {
   user: {
@@ -23,22 +24,22 @@ interface RequestWithUser extends Request {
     role: string[];
   };
 }
+@ApiTags('auth')
 @Controller('auth')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
-  //pruebas
-  @Post('productos')
-  productos(@Body() createProductoDto: CreateProductoDto) {
-    return this.authService.productos(createProductoDto);
-  }
-
   @Post('register')
+  @ApiOperation({ summary: 'Registrar un nuevo usuario' })
+  @ApiBody({ type: RegisterDto })
   register(@Body() registerDto: RegisterDto) {
     return this.authService.register(registerDto);
   }
 
   @Post('login')
+  @ApiOperation({ summary: 'Iniciar sesión' })
+  @ApiBody({ type: LoginDto })
+  @ApiOperation({ summary: 'Obtener el perfil del usuario autenticado' })
   login(@Body() loginDto: LoginDto) {
     return this.authService.login(loginDto);
   }
@@ -47,7 +48,7 @@ export class AuthController {
   //@Roles([Role.ADMIN])
   //carga el canActive del AuthGuard y lo usa el RolesGuard
   //@UseGuards(AuthGuard, RolesGuard)
-  @Auth(Role.ADMIN)
+  @Auth([Role.ADMIN])
   profile(@Req() req: RequestWithUser) {
     return this.authService.profile({
       username: req.user.username,
@@ -55,6 +56,11 @@ export class AuthController {
     });
   }
   @Get('verificacion')
+  @ApiOperation({ summary: 'Verificar el token de autenticación' })
+  @ApiHeader({
+    name: 'authorization',
+    description: 'Bearer token de autenticación',
+  })
   verificacion(@Headers('authorization') authHeader: string) {
     const token = authHeader?.split(' ')[1];
     if (!token) {

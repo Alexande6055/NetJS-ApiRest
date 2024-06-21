@@ -1,33 +1,57 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+} from '@nestjs/common';
 import { DetalleFacturasService } from './detalle_facturas.service';
 import { CreateDetalleFacturaDto } from './dto/create-detalle_factura.dto';
 import { UpdateDetalleFacturaDto } from './dto/update-detalle_factura.dto';
-
+import { ApiBody, ApiOperation, ApiParam, ApiTags } from '@nestjs/swagger';
+@ApiTags('detalle-facturas')
 @Controller('detalle-facturas')
 export class DetalleFacturasController {
-  constructor(private readonly detalleFacturasService: DetalleFacturasService) {}
+  constructor(
+    private readonly detalleFacturasService: DetalleFacturasService,
+  ) {}
 
   @Post()
+  @ApiOperation({ summary: 'Crear un nuevo detalle de factura' })
+  @ApiBody({ type: CreateDetalleFacturaDto })
   create(@Body() createDetalleFacturaDto: CreateDetalleFacturaDto) {
     return this.detalleFacturasService.create(createDetalleFacturaDto);
   }
 
   @Get()
+  @ApiOperation({ summary: 'Obtener todos los detalles de factura' })
   findAll() {
     return this.detalleFacturasService.findAll();
   }
 
   @Get(':id')
+  @ApiOperation({ summary: 'Obtener un detalle de factura por su ID' })
+  @ApiParam({ name: 'id', description: 'ID del detalle de factura' })
   findOne(@Param('id') id: string) {
     return this.detalleFacturasService.findOne(+id);
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateDetalleFacturaDto: UpdateDetalleFacturaDto) {
+  @ApiOperation({ summary: 'Actualizar un detalle de factura por su ID' })
+  @ApiParam({ name: 'id', description: 'ID del detalle de factura' })
+  @ApiBody({ type: UpdateDetalleFacturaDto })
+  update(
+    @Param('id') id: string,
+    @Body() updateDetalleFacturaDto: UpdateDetalleFacturaDto,
+  ) {
     return this.detalleFacturasService.update(+id, updateDetalleFacturaDto);
   }
 
   @Delete(':id')
+  @ApiOperation({ summary: 'Eliminar un detalle de factura por su ID' })
+  @ApiParam({ name: 'id', description: 'ID del detalle de factura' })
   remove(@Param('id') id: string) {
     return this.detalleFacturasService.remove(+id);
   }

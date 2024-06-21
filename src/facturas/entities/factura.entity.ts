@@ -28,5 +28,4 @@ export class Factura {
   tipoPago: TipoPago;
   @Column({ type: 'decimal', nullable: false, precision: 10, scale: 4 })
   totalFactura: number;
-  //insertar relacion al id sucursal
 }

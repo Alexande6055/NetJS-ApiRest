@@ -10,7 +10,8 @@ import {
 import { TiposIdentificacionesService } from './tipos_identificaciones.service';
 import { CreateTiposIdentificacioneDto } from './dto/create-tipos_identificacione.dto';
 import { UpdateTiposIdentificacioneDto } from './dto/update-tipos_identificacione.dto';
-
+import { ApiBody, ApiOperation, ApiParam, ApiTags } from '@nestjs/swagger';
+@ApiTags('tipos-identificaciones')
 @Controller('tipos-identificaciones')
 export class TiposIdentificacionesController {
   constructor(
@@ -18,6 +19,8 @@ export class TiposIdentificacionesController {
   ) {}
 
   @Post()
+  @ApiOperation({ summary: 'Crear un nuevo tipo de identificación' })
+  @ApiBody({ type: CreateTiposIdentificacioneDto })
   create(@Body() createTiposIdentificacioneDto: CreateTiposIdentificacioneDto) {
     return this.tiposIdentificacionesService.create(
       createTiposIdentificacioneDto,
@@ -25,16 +28,22 @@ export class TiposIdentificacionesController {
   }
 
   @Get()
+  @ApiOperation({ summary: 'Obtener todos los tipos de identificaciones' })
   findAll() {
     return this.tiposIdentificacionesService.findAll();
   }
 
   @Get(':id')
+  @ApiOperation({ summary: 'Obtener un tipo de identificación por ID' })
+  @ApiParam({ name: 'id', description: 'ID del tipo de identificación' })
   findOne(@Param('id') id: number) {
     return this.tiposIdentificacionesService.findOne(id);
   }
 
   @Patch(':id')
+  @ApiOperation({ summary: 'Actualizar un tipo de identificación por ID' })
+  @ApiParam({ name: 'id', description: 'ID del tipo de identificación' })
+  @ApiBody({ type: UpdateTiposIdentificacioneDto })
   update(
     @Param('id') id: number,
     @Body() updateTiposIdentificacioneDto: UpdateTiposIdentificacioneDto,
@@ -46,6 +55,8 @@ export class TiposIdentificacionesController {
   }
 
   @Delete(':id')
+  @ApiOperation({ summary: 'Eliminar un tipo de identificación por ID' })
+  @ApiParam({ name: 'id', description: 'ID del tipo de identificación' })
   remove(@Param('id') id: number) {
     return this.tiposIdentificacionesService.remove(id);
   }
