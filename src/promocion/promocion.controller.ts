@@ -32,7 +32,6 @@ export class PromocionController {
   }
 
   @Get()
-  @Auth([Role.ADMIN, Role.DIRECTOR])
   @ApiOperation({ summary: 'Obtener todas las promociones' })
   @ApiResponse({
     status: 200,

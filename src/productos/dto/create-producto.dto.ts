@@ -1,7 +1,7 @@
 import { Optional } from '@nestjs/common';
 import { ApiProperty } from '@nestjs/swagger';
 import { Transform } from 'class-transformer';
-import { IsNumber, IsString, MinLength } from 'class-validator';
+import { IsNumber, IsOptional, IsString, MinLength } from 'class-validator';
 
 export class CreateProductoDto {
   @IsString()
@@ -29,10 +29,24 @@ export class CreateProductoDto {
   @IsString()
   @ApiProperty({ description: 'Nombre de la marca del producto' })
   nombre_marca: string;
+  @IsOptional()
   @IsNumber()
   @ApiProperty({
     description: 'ID de la promoción aplicada al producto',
     required: false,
   })
-  id_promocion: number;
+  id_promocion?: number;
+  @IsNumber()
+  @ApiProperty({
+    description: 'cantidad del producto en stock',
+    required: false,
+  })
+  stock: number;
+  @IsOptional()
+  @IsNumber()
+  @ApiProperty({
+    description: 'Id del iva',
+    required: false,
+  })
+  iva?: number;
 }

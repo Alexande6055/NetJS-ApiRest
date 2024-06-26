@@ -1,5 +1,5 @@
 let editingProductId = null;
-
+/*
 function showAddProductForm() {
   editingProductId = null;
   document.getElementById('formTitle').innerText = 'Añadir Nuevo Producto';
@@ -10,25 +10,41 @@ function showAddProductForm() {
 function hideProductForm() {
   document.getElementById('productFormContainer').style.display = 'none';
 }
-
+*/
 async function saveProduct() {
-  const nombre = document.getElementById('productName').value;
-  const descripcion = document.getElementById('productDescription').value;
+  const nombre = document.getElementById('productName').value.trim();
+  const descripcion = document
+    .getElementById('productDescription')
+    .value.trim();
+  const imgUrl =
+    'https://images.vexels.com/media/users/3/128454/isolated/preview/6d8c286a64924ebfdff090cf335f0bd4-sello-retro-de-producto-premium.png?w=360';
   const precio = parseFloat(document.getElementById('productPrice').value);
-  const imagen = document.getElementById('productImage').files[0];
-  const categoriaId = document.getElementById('productCategory').value;
+  const nombre_categoria = document.getElementById('productCategory').value;
+  const nombre_marca = document.getElementById('productBrand').value;
+  const id_promocion = document.getElementById('promotionDescription').value;
+  const stock = parseInt(document.getElementById('productStock').value);
+  const iva = document.getElementById('productIva').value;
 
-  const productData = new FormData();
-  productData.append('nombre', nombre);
-  productData.append('descripcion', descripcion);
-  productData.append('precio', precio);
-  productData.append('id_categoria', categoriaId);
-  productData.append('imagen', imagen);
+  const productData = {
+    nombre,
+    descripcion,
+    imgUrl,
+    precio,
+    nombre_categoria,
+    nombre_marca,
+    id_promocion: id_promocion ? parseInt(id_promocion) : null,
+    stock,
+    iva: iva ? parseInt(iva) : null,
+  };
 
   try {
     const response = await fetch('http://localhost:8000/api/productos', {
       method: 'POST',
-      body: productData,
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${localStorage.getItem('authToken')}`,
+      },
+      body: JSON.stringify(productData),
     });
 
     if (!response.ok) {
@@ -43,7 +59,7 @@ async function saveProduct() {
     alert('Error al guardar el producto');
   }
 }
-
+/*
 async function editProduct(id) {
   const apiUrl = `http://localhost:8000/api/productos/${id}`;
   const response = await fetch(apiUrl);
@@ -54,24 +70,39 @@ async function editProduct(id) {
   document.getElementById('productName').value = data.nombre;
   document.getElementById('productDescription').value = data.descripcion;
   document.getElementById('productPrice').value = data.precio;
-  document.getElementById('productCategory').value = data.id_categoria;
+  document.getElementById('productCategory').value = data.nombre_categoria;
+  document.getElementById('productBrand').value = data.nombre_marca;
+  document.getElementById('promotionDescription').value = data.id_promocion;
   document.getElementById('productStock').value = data.stock;
+  document.getElementById('productIva').value = data.iva;
   document.getElementById('productFormContainer').style.display = 'block';
 
   document.getElementById('saveProductButton').onclick = updateProduct;
 }
 
 async function updateProduct() {
-  const nombre = document.getElementById('productName').value;
-  const descripcion = document.getElementById('productDescription').value;
+  const nombre = document.getElementById('productName').value.trim();
+  const descripcion = document
+    .getElementById('productDescription')
+    .value.trim();
+  const imgUrl = document.getElementById('productImageUrl').value.trim();
   const precio = parseFloat(document.getElementById('productPrice').value);
-  const categoriaId = document.getElementById('productCategory').value;
+  const nombre_categoria = document.getElementById('productCategory').value;
+  const nombre_marca = document.getElementById('productBrand').value;
+  const id_promocion = document.getElementById('promotionDescription').value;
+  const stock = parseInt(document.getElementById('productStock').value);
+  const iva = document.getElementById('productIva').value;
 
   const productData = {
-    nombre: nombre,
-    descripcion: descripcion,
-    precio: precio,
-    id_categoria: categoriaId,
+    nombre,
+    descripcion,
+    imgUrl,
+    precio,
+    nombre_categoria,
+    nombre_marca,
+    id_promocion: id_promocion ? parseInt(id_promocion) : null,
+    stock,
+    iva: iva ? parseInt(iva) : null,
   };
 
   try {
@@ -81,6 +112,7 @@ async function updateProduct() {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
+          Authorization: `Bearer ${localStorage.getItem('authToken')}`,
         },
         body: JSON.stringify(productData),
       },
@@ -97,4 +129,4 @@ async function updateProduct() {
     console.error('Error al actualizar el producto:', error);
     alert('Error al actualizar el producto');
   }
-}
+}*/

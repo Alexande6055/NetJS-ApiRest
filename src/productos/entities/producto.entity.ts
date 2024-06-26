@@ -31,7 +31,7 @@ export class Producto {
   @Column({ type: 'int', default: 0 })
   @ApiProperty({ description: 'Cantidad en stock del producto' })
   stock: number;
-  @ManyToOne(() => Iva)
+  @ManyToOne(() => Iva, { nullable: true })
   @JoinColumn({ name: 'id_iva' })
   @ApiProperty({ description: 'Objeto IVA aplicado al producto' })
   iva: Iva;

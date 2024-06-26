@@ -29,23 +29,31 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   };
 
-  // crear categoria
+  // Function to create a category
   const createCategory = async (event) => {
     event.preventDefault();
     const categoryName = categoryNameInput.value;
     const categoryDescription = categoryDescriptionInput.value;
     if (categoryName && categoryDescription) {
       try {
-        await fetch(apiEndpoint, {
+        const token = localStorage.getItem('authToken'); // Obtener el token JWT almacenado
+
+        const response = await fetch(apiEndpoint, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`, // Incluir el token JWT en el encabezado
           },
           body: JSON.stringify({
-            nombre: categoryName + '',
-            descripcion: categoryDescription + '',
+            nombre: categoryName,
+            descripcion: categoryDescription,
           }),
         });
+
+        if (!response.ok) {
+          throw new Error('Error creating category');
+        }
+
         categoryNameInput.value = '';
         categoryDescriptionInput.value = '';
         fetchCategories();
@@ -58,9 +66,15 @@ document.addEventListener('DOMContentLoaded', () => {
   // Function to delete a category
   const deleteCategory = async (id) => {
     try {
-      await fetch(apiEndpoint + '/' + id, {
+      const token = localStorage.getItem('authToken'); // Obtener el token JWT almacenado
+
+      await fetch(`${apiEndpoint}/${id}`, {
         method: 'DELETE',
+        headers: {
+          Authorization: `Bearer ${token}`, // Incluir el token JWT en el encabezado
+        },
       });
+
       fetchCategories();
     } catch (error) {
       console.error('Error deleting category:', error);

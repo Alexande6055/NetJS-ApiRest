@@ -6,6 +6,7 @@ import { Producto } from './entities/producto.entity';
 import { MarcaModule } from 'src/marca/marca.module';
 import { CategoriasModule } from 'src/categorias/categorias.module';
 import { PromocionModule } from 'src/promocion/promocion.module';
+import { IvaModule } from 'src/iva/iva.module';
 
 @Module({
   imports: [
@@ -13,6 +14,7 @@ import { PromocionModule } from 'src/promocion/promocion.module';
     MarcaModule,
     CategoriasModule,
     PromocionModule,
+    IvaModule,
   ],
   controllers: [ProductosController],
   providers: [ProductosService],

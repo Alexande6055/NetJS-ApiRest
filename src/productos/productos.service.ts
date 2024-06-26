@@ -7,6 +7,7 @@ import { Repository } from 'typeorm';
 import { MarcaService } from 'src/marca/marca.service';
 import { PromocionService } from 'src/promocion/promocion.service';
 import { CategoriasService } from 'src/categorias/categorias.service';
+import { IvaService } from 'src/iva/iva.service';
 
 @Injectable()
 export class ProductosService {
@@ -16,6 +17,7 @@ export class ProductosService {
     private readonly categoriaService: CategoriasService,
     private readonly marcaService: MarcaService,
     private readonly promocionService: PromocionService,
+    private readonly ivaService: IvaService,
   ) {}
 
   async create(createProductoDto: CreateProductoDto) {
@@ -29,11 +31,17 @@ export class ProductosService {
       createProductoDto.id_promocion == null
         ? null
         : await this.promocionService.findOne(createProductoDto.id_promocion);
+
+    const iva =
+      createProductoDto.iva == null
+        ? null
+        : await this.ivaService.findOne(createProductoDto.iva);
     const producto = await this.productoRepository.create({
       ...createProductoDto,
       id_categoria: categoria,
       id_marca: marca,
       id_promocion: promocion,
+      iva: iva,
     });
     return this.productoRepository.save(producto);
   }
@@ -51,6 +59,10 @@ export class ProductosService {
       updateProductoDto.id_promocion == null
         ? null
         : await this.promocionService.findOne(updateProductoDto.id_promocion);
+    const iva =
+      updateProductoDto.iva == null
+        ? null
+        : await this.ivaService.findOne(updateProductoDto.iva);
     const categoria = await this.categoriaService.findByNombre(
       updateProductoDto.nombre_categoria,
     );
@@ -62,6 +74,7 @@ export class ProductosService {
       id_categoria: categoria,
       id_marca: marca,
       id_promocion: promocion,
+      iva: iva,
     });
     return this.productoRepository.update(id_producto, producto);
   }

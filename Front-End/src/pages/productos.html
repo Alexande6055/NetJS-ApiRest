@@ -121,15 +121,14 @@
             ></textarea>
           </div>
           <div class="form-group">
-            <label for="productImage"
-              >Imagen del Producto (Mín. 8 caracteres)</label
+            <label for="productImageUrl"
+              >URL de la Imagen (Mín. 8 caracteres)</label
             >
             <input
-              type="file"
-              id="productImage"
-              name="imagen"
-              accept="image/*"
-              required
+              type="text"
+              id="productImageUrl"
+              name="imgUrl"
+              minlength="8"
             />
           </div>
           <div class="form-group">
@@ -146,7 +145,7 @@
             <label for="productCategory">Categoría</label>
             <select
               id="productCategory"
-              name="productCategory"
+              name="nombre_categoria"
               required
             ></select>
           </div>
@@ -156,11 +155,15 @@
           </div>
           <div class="form-group">
             <label for="promotionDescription">Promoción</label>
-            <select
-              id="promotionDescription"
-              name="descripcion_promocion"
-              required
-            ></select>
+            <select id="promotionDescription" name="id_promocion"></select>
+          </div>
+          <div class="form-group">
+            <label for="productStock">Cantidad en Stock</label>
+            <input type="number" id="productStock" name="stock" />
+          </div>
+          <div class="form-group">
+            <label for="productIva">IVA</label>
+            <select id="productIva" name="iva"></select>
           </div>
           <button type="button" onclick="saveProduct()">
             Guardar Producto
@@ -168,7 +171,7 @@
         </form>
       </main>
     </div>
-    <script src="../assests/productos/cargarDatos.js"></script>
+    <!--<script src="../assests/productos/cargarDatos.js"></script>---->
     <script src="../assests/productos/acciones.js"></script>
     <script src="../assests/home/redirecciones.js"></script>
   </body>

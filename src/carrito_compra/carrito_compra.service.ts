@@ -21,7 +21,7 @@ export class CarritoCompraService {
   async findAllBy(id_carrito_compra: number) {
     const carritoCompra = await this.carritoCompraRepository.findOne({
       where: { id_carrito_compra },
-      relations: ['carritoProductos', 'carritoProductos.id_producto'],
+      relations: ['carritoProductos'],
     });
 
     if (!carritoCompra) {
@@ -30,10 +30,7 @@ export class CarritoCompraService {
       );
     }
 
-    const productos = carritoCompra.carritoProductos.map(
-      (cp) => cp.id_producto,
-    );
-    return productos;
+    return carritoCompra;
   }
 
   async findOne(id_carrito_compra: number) {

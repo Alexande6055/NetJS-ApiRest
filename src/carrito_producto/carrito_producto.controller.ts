@@ -11,6 +11,7 @@ import { CarritoProductoService } from './carrito_producto.service';
 import { CreateCarritoProductoDto } from './dto/create-carrito_producto.dto';
 import { CarritoCompraService } from 'src/carrito_compra/carrito_compra.service';
 import { ApiBody, ApiOperation, ApiParam, ApiTags } from '@nestjs/swagger';
+import { UpdateCarritoProductoDto } from './dto/update-carrito_producto.dto';
 @ApiTags('carrito-producto')
 @Controller('carrito-producto')
 export class CarritoProductoController {
@@ -53,5 +54,14 @@ export class CarritoProductoController {
   @ApiParam({ name: 'id', description: 'ID del carrito de compra' })
   obtenerProductosCarrito(@Param('id') id: number) {
     return this.carritoCompraService.findAllBy(id);
+  }
+
+  @Post('restar')
+  @ApiOperation({ summary: 'Quitar un producto del carrito por ID' })
+  @ApiParam({ name: 'id', description: 'ID del registro' })
+  update(@Body() id_carrito_producto: { id_carrito_producto: number }) {
+    return this.carritoProductoService.quitarProducto(
+      id_carrito_producto.id_carrito_producto,
+    );
   }
 }

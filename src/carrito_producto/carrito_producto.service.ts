@@ -44,4 +44,20 @@ export class CarritoProductoService {
   remove(id: number) {
     return `This action removes a #${id} carritoProducto`;
   }
+  async quitarProducto(id_carrito_producto: number) {
+    let carritoProducto = await this.carritoProductoRepository.findOneBy({
+      id_carrito_producto,
+    });
+    if (carritoProducto) {
+      carritoProducto.cantidad--;
+      const carritoCompPro =
+        this.carritoProductoRepository.create(carritoProducto);
+      this.carritoProductoRepository.update(
+        carritoProducto.id_carrito_producto,
+        carritoCompPro,
+      );
+    } else {
+      return null; // Guardar o actualizar
+    }
+  }
 }

@@ -36,23 +36,23 @@ export class IvaController {
   @Get(':id')
   @ApiOperation({ summary: 'Obtener un registro de IVA por ID' })
   @ApiParam({ name: 'id', description: 'ID del registro de IVA' })
-  findOne(@Param('id') id: string) {
-    return this.ivaService.findOne(+id);
+  findOne(@Param('id') id_iva: number) {
+    return this.ivaService.findOne(id_iva);
   }
 
   @Patch(':id')
   @ApiOperation({ summary: 'Actualizar un registro de IVA por ID' })
   @ApiParam({ name: 'id', description: 'ID del registro de IVA' })
   @ApiBody({ type: UpdateIvaDto })
-  update(@Param('id') id: string, @Body() updateIvaDto: UpdateIvaDto) {
-    return this.ivaService.update(+id, updateIvaDto);
+  update(@Param('id') id_iva: number, @Body() updateIvaDto: UpdateIvaDto) {
+    return this.ivaService.update(id_iva, updateIvaDto);
   }
 
   @Delete(':id')
   @Auth([Role.ADMIN, Role.CONTADOR])
   @ApiOperation({ summary: 'Eliminar un registro de IVA por ID' })
   @ApiParam({ name: 'id', description: 'ID del registro de IVA' })
-  remove(@Param('id') id: string) {
-    return this.ivaService.remove(+id);
+  remove(@Param('id') id_iva: number) {
+    return this.ivaService.remove(id_iva);
   }
 }

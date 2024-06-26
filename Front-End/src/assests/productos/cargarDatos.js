@@ -1,5 +1,9 @@
 document.addEventListener('DOMContentLoaded', function () {
   loadProducts();
+  loadCategories();
+  loadBrands();
+  loadPromotions();
+  loadIva();
 });
 
 function loadProducts() {
@@ -9,7 +13,7 @@ function loadProducts() {
     .then((response) => response.json())
     .then((data) => {
       const productList = document.getElementById('productList');
-      //productList.innerHTML = '';
+      productList.innerHTML = '';
 
       data.forEach((product) => {
         const productItem = document.createElement('div');
@@ -18,8 +22,8 @@ function loadProducts() {
           <img src="${product.imgUrl}" alt="${product.nombre}" class="product-image">
           <span>${product.nombre} - ${product.precio} USD</span>
           <span>
-            <button onclick="editProduct(${product.id_producto})">Editar</button>
-            <button onclick="deleteProduct(${product.id_producto})">Eliminar</button>
+            <button onclick="editProduct(${product.id})">Editar</button>
+            <button onclick="deleteProduct(${product.id})">Eliminar</button>
           </span>
         `;
         productList.appendChild(productItem);
@@ -27,88 +31,79 @@ function loadProducts() {
     })
     .catch((error) => console.error('Error al cargar los productos:', error));
 }
-document.addEventListener('DOMContentLoaded', function () {
-  loadCategories();
-});
 
-//cargar categorias
 function loadCategories() {
   const apiUrl = 'http://localhost:8000/api/categorias';
 
   fetch(apiUrl)
     .then((response) => response.json())
     .then((data) => {
-      const categoryList = document.getElementById('productCategory');
-      categoryList.innerHTML = '';
+      const categorySelect = document.getElementById('productCategory');
+      categorySelect.innerHTML = '<option value="">Ninguno</option>'; // Opción por defecto
 
-      data.forEach((categoria) => {
+      data.forEach((category) => {
         const option = document.createElement('option');
-        option.value = categoria.id_categoria;
-        option.textContent = categoria.nombre;
-        categoryList.appendChild(option);
+        option.value = category.nombre;
+        option.textContent = category.nombre;
+        categorySelect.appendChild(option);
       });
     })
-    .catch((error) => {
-      console.error('Error al cargar las categorías:', error);
-    });
+    .catch((error) => console.error('Error al cargar las categorías:', error));
 }
 
-//cargar marcas
-document.addEventListener('DOMContentLoaded', function () {
-  loadCategories();
-  loadBrands();
-});
-
-async function loadBrands() {
+function loadBrands() {
   const apiUrl = 'http://localhost:8000/api/marca';
 
-  try {
-    const response = await fetch(apiUrl);
-    const data = await response.json();
+  fetch(apiUrl)
+    .then((response) => response.json())
+    .then((data) => {
+      const brandSelect = document.getElementById('productBrand');
+      brandSelect.innerHTML = '<option value="">Ninguno</option>'; // Opción por defecto
 
-    const brandSelect = document.getElementById('productBrand');
-    brandSelect.innerHTML = '';
-
-    data.forEach((marca) => {
-      const option = document.createElement('option');
-      option.value = marca.id_marca; // Asegúrate de ajustar esto según la estructura de tu API
-      option.textContent = marca.nombre;
-      brandSelect.appendChild(option);
-    });
-  } catch (error) {
-    console.error('Error al cargar las marcas:', error);
-  }
+      data.forEach((brand) => {
+        const option = document.createElement('option');
+        option.value = brand.nombre;
+        option.textContent = brand.nombre;
+        brandSelect.appendChild(option);
+      });
+    })
+    .catch((error) => console.error('Error al cargar las marcas:', error));
 }
 
-//cargar promociones
-document.addEventListener('DOMContentLoaded', function () {
-  loadCategories();
-  loadBrands();
-  loadPromotions();
-});
-
-async function loadPromotions() {
+function loadPromotions() {
   const apiUrl = 'http://localhost:8000/api/promocion';
 
-  try {
-    const response = await fetch(apiUrl);
-    const data = await response.json();
+  fetch(apiUrl)
+    .then((response) => response.json())
+    .then((data) => {
+      const promotionSelect = document.getElementById('promotionDescription');
+      promotionSelect.innerHTML = '<option value="">Ninguno</option>'; // Opción por defecto
 
-    const promotionSelect = document.getElementById('promotionDescription');
-    promotionSelect.innerHTML = '';
+      data.forEach((promotion) => {
+        const option = document.createElement('option');
+        option.value = promotion.id;
+        option.textContent = promotion.descripcion;
+        promotionSelect.appendChild(option);
+      });
+    })
+    .catch((error) => console.error('Error al cargar las promociones:', error));
+}
 
-    data.forEach((promocion) => {
-      const option = document.createElement('option');
-      option.value = promocion.id_promocion; // Ajusta esto según la estructura de tu API
-      option.textContent =
-        promocion.descripcion + '    ' + promocion.descuento * 100 + '%';
-      promotionSelect.appendChild(option);
-    });
-    const defaultOption = document.createElement('option');
-    defaultOption.value = '';
-    defaultOption.textContent = 'Ninguno';
-    promotionSelect.appendChild(defaultOption);
-  } catch (error) {
-    console.error('Error al cargar las promociones:', error);
-  }
+function loadIva() {
+  const apiUrl = 'http://localhost:8000/api/iva';
+
+  fetch(apiUrl)
+    .then((response) => response.json())
+    .then((data) => {
+      const ivaSelect = document.getElementById('productIva');
+      ivaSelect.innerHTML = '<option value="">Ninguno</option>'; // Opción por defecto
+
+      data.forEach((iva) => {
+        const option = document.createElement('option');
+        option.value = iva.valor;
+        option.textContent = iva.descripcion;
+        ivaSelect.appendChild(option);
+      });
+    })
+    .catch((error) => console.error('Error al cargar el IVA:', error));
 }
