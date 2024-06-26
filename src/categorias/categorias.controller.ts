@@ -11,6 +11,8 @@ import { CategoriasService } from './categorias.service';
 import { CreateCategoriaDto } from './dto/create-categoria.dto';
 import { UpdateCategoriaDto } from './dto/update-categoria.dto';
 import { ApiBody, ApiOperation, ApiParam, ApiTags } from '@nestjs/swagger';
+import { Auth } from 'src/auth/decorators/auth.decorator';
+import { Role } from 'src/auth/enums/rol.enum';
 
 @ApiTags('categorias')
 @Controller('categorias')
@@ -18,6 +20,7 @@ export class CategoriasController {
   constructor(private readonly categoriasService: CategoriasService) {}
 
   @Post()
+  @Auth([Role.DIRECTOR, Role.ADMIN, Role.CONTADOR])
   @ApiOperation({ summary: 'Crear una nueva categoría' })
   @ApiBody({ type: CreateCategoriaDto })
   create(@Body() createCategoriaDto: CreateCategoriaDto) {
@@ -49,6 +52,7 @@ export class CategoriasController {
   }
 
   @Delete(':id')
+  @Auth([Role.DIRECTOR, Role.ADMIN, Role.CONTADOR])
   @ApiOperation({ summary: 'Eliminar una categoría por su ID' })
   @ApiParam({ name: 'id', description: 'ID de la categoría' })
   remove(@Param('id') id: number) {

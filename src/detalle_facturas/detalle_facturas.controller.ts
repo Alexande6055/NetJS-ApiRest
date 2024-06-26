@@ -11,6 +11,8 @@ import { DetalleFacturasService } from './detalle_facturas.service';
 import { CreateDetalleFacturaDto } from './dto/create-detalle_factura.dto';
 import { UpdateDetalleFacturaDto } from './dto/update-detalle_factura.dto';
 import { ApiBody, ApiOperation, ApiParam, ApiTags } from '@nestjs/swagger';
+import { Auth } from 'src/auth/decorators/auth.decorator';
+import { Role } from 'src/auth/enums/rol.enum';
 @ApiTags('detalle-facturas')
 @Controller('detalle-facturas')
 export class DetalleFacturasController {
@@ -50,6 +52,7 @@ export class DetalleFacturasController {
   }
 
   @Delete(':id')
+  @Auth([Role.ADMIN, Role.CONTADOR])
   @ApiOperation({ summary: 'Eliminar un detalle de factura por su ID' })
   @ApiParam({ name: 'id', description: 'ID del detalle de factura' })
   remove(@Param('id') id: string) {

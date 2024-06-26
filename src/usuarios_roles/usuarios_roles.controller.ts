@@ -9,9 +9,9 @@ import {
 } from '@nestjs/common';
 import { UsuariosRolesService } from './usuarios_roles.service';
 import { CreateUsuariosRoleDto } from './dto/create-usuarios_role.dto';
-import { UpdateUsuariosRoleDto } from './dto/update-usuarios_role.dto';
 import { ApiBody, ApiOperation, ApiParam, ApiTags } from '@nestjs/swagger';
-import { AuthController } from 'src/auth/auth.controller';
+import { Auth } from 'src/auth/decorators/auth.decorator';
+import { Role } from 'src/auth/enums/rol.enum';
 
 @ApiTags('usuarios-roles')
 @Controller('usuarios-roles')
@@ -19,9 +19,15 @@ export class UsuariosRolesController {
   constructor(private readonly usuariosRolesService: UsuariosRolesService) {}
 
   @Post()
-  create(@Body() createUsuariosRoleDto: CreateUsuariosRoleDto) {
-    return this.usuariosRolesService.create(createUsuariosRoleDto);
+  @Auth([Role.ADMIN])
+  create(@Body() id_user: number) {
+    return this.usuariosRolesService.create(id_user);
   }
+
+  /* @Post()
+  asignarDefault(@Body() createUsuariosRoleDto: CreateUsuariosRoleDto) {
+    return this.usuariosRolesService.create(createUsuariosRoleDto);
+  }*/
 
   @Get(':id')
   @ApiOperation({ summary: 'Obtener una relación usuario-rol por ID' })
@@ -40,6 +46,7 @@ export class UsuariosRolesController {
   }
 
   @Post('actualizarroles/:id')
+  @Auth([Role.ADMIN])
   @ApiOperation({ summary: 'Actualizar los roles de un usuario por ID' })
   @ApiParam({ name: 'id', description: 'ID del usuario' })
   @ApiBody({

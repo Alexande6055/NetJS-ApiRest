@@ -11,6 +11,8 @@ import { RolesMenusService } from './roles_menus.service';
 import { CreateRolesMenuDto } from './dto/create-roles_menu.dto';
 import { UpdateRolesMenuDto } from './dto/update-roles_menu.dto';
 import { ApiBody, ApiOperation, ApiParam, ApiTags } from '@nestjs/swagger';
+import { Auth } from 'src/auth/decorators/auth.decorator';
+import { Role } from 'src/auth/enums/rol.enum';
 
 @ApiTags('roles-menus')
 @Controller('roles-menus')
@@ -18,6 +20,7 @@ export class RolesMenusController {
   constructor(private readonly rolesMenusService: RolesMenusService) {}
 
   @Post()
+  @Auth([Role.ADMIN])
   @ApiOperation({ summary: 'Crear una nueva relación rol-menú' })
   @ApiBody({ type: CreateRolesMenuDto })
   create(@Body() createRolesMenuDto: CreateRolesMenuDto) {
@@ -25,12 +28,14 @@ export class RolesMenusController {
   }
 
   @Get()
+  @Auth([Role.ADMIN])
   @ApiOperation({ summary: 'Obtener todas las relaciones rol-menú' })
   findAll() {
     return this.rolesMenusService.findAll();
   }
 
   @Get(':id')
+  @Auth([Role.ADMIN])
   @ApiOperation({ summary: 'Obtener una relación rol-menú por ID' })
   @ApiParam({ name: 'id', description: 'ID de la relación rol-menú' })
   findOne(@Param('id') id: string) {
@@ -38,6 +43,7 @@ export class RolesMenusController {
   }
 
   @Patch(':id')
+  @Auth([Role.ADMIN])
   @ApiOperation({ summary: 'Actualizar una relación rol-menú por ID' })
   @ApiParam({ name: 'id', description: 'ID de la relación rol-menú' })
   @ApiBody({ type: UpdateRolesMenuDto })
@@ -49,6 +55,7 @@ export class RolesMenusController {
   }
 
   @Delete(':id')
+  @Auth([Role.ADMIN])
   @ApiOperation({ summary: 'Eliminar una relación rol-menú por ID' })
   @ApiParam({ name: 'id', description: 'ID de la relación rol-menú' })
   remove(@Param('id') id: string) {

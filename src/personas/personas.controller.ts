@@ -10,8 +10,9 @@ import {
 import { PersonasService } from './personas.service';
 import { CreatePersonaDto } from './dto/create-persona.dto';
 import { UpdatePersonaDto } from './dto/update-persona.dto';
-import { UsuariosService } from 'src/usuarios/usuarios.service';
 import { ApiBody, ApiOperation, ApiParam, ApiTags } from '@nestjs/swagger';
+import { Auth } from 'src/auth/decorators/auth.decorator';
+import { Role } from 'src/auth/enums/rol.enum';
 
 @ApiTags('personas')
 @Controller('personas')
@@ -47,6 +48,7 @@ export class PersonasController {
   }
 
   @Delete(':id')
+  @Auth([Role.ADMIN, Role.DIRECTOR])
   @ApiOperation({ summary: 'Eliminar una persona por ID' })
   @ApiParam({ name: 'id', description: 'ID de la persona' })
   remove(@Param('id') id: number) {

@@ -20,7 +20,7 @@ export class MarcaController {
   constructor(private readonly marcaService: MarcaService) {}
 
   @Post()
-  @Auth([Role.DIRECTOR, Role.ADMIN])
+  @Auth([Role.DIRECTOR, Role.ADMIN, Role.CONTADOR])
   @ApiOperation({ summary: 'Crear una nueva marca' })
   create(@Body() createMarcaDto: CreateMarcaDto) {
     return this.marcaService.create(createMarcaDto);
@@ -40,7 +40,7 @@ export class MarcaController {
   }
 
   @Patch(':id')
-  @Auth([Role.DIRECTOR, Role.ADMIN])
+  @Auth([Role.DIRECTOR, Role.ADMIN, Role.CONTADOR])
   @ApiOperation({ summary: 'Actualizar una marca por su ID' })
   @ApiParam({ name: 'id', description: 'ID de la marca' })
   update(@Param('id') id: number, @Body() updateMarcaDto: UpdateMarcaDto) {

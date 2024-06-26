@@ -12,12 +12,15 @@ import { CreatePromocionDto } from './dto/create-promocion.dto';
 import { UpdatePromocionDto } from './dto/update-promocion.dto';
 import { ApiOperation, ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { Promocion } from './entities/promocion.entity';
+import { Role } from 'src/auth/enums/rol.enum';
+import { Auth } from 'src/auth/decorators/auth.decorator';
 @ApiTags('Promocion')
 @Controller('promocion')
 export class PromocionController {
   constructor(private readonly promocionService: PromocionService) {}
 
   @Post()
+  @Auth([Role.ADMIN, Role.DIRECTOR])
   @ApiOperation({ summary: 'Crear una nueva promoción' })
   @ApiResponse({
     status: 201,
@@ -29,6 +32,7 @@ export class PromocionController {
   }
 
   @Get()
+  @Auth([Role.ADMIN, Role.DIRECTOR])
   @ApiOperation({ summary: 'Obtener todas las promociones' })
   @ApiResponse({
     status: 200,
@@ -59,6 +63,7 @@ export class PromocionController {
     type: Promocion,
   })
   @Patch(':id')
+  @Auth([Role.ADMIN, Role.DIRECTOR])
   update(
     @Param('id') id: number,
     @Body() updatePromocionDto: UpdatePromocionDto,
@@ -73,6 +78,7 @@ export class PromocionController {
     description: 'La promoción ha sido eliminada satisfactoriamente',
   })
   @Delete(':id')
+  @Auth([Role.ADMIN, Role.DIRECTOR])
   remove(@Param('id') id: number) {
     return this.promocionService.remove(id);
   }

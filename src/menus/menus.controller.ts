@@ -11,6 +11,8 @@ import { MenusService } from './menus.service';
 import { CreateMenuDto } from './dto/create-menu.dto';
 import { UpdateMenuDto } from './dto/update-menu.dto';
 import { ApiBody, ApiOperation, ApiParam, ApiTags } from '@nestjs/swagger';
+import { Role } from 'src/auth/enums/rol.enum';
+import { Auth } from 'src/auth/decorators/auth.decorator';
 
 @ApiTags('menus')
 @Controller('menus')
@@ -18,6 +20,7 @@ export class MenusController {
   constructor(private readonly menusService: MenusService) {}
 
   @Post()
+  @Auth([Role.ADMIN])
   @ApiOperation({ summary: 'Crear un nuevo menú' })
   @ApiBody({ type: CreateMenuDto })
   create(@Body() createMenuDto: CreateMenuDto) {
@@ -38,6 +41,7 @@ export class MenusController {
   }
 
   @Patch(':id')
+  @Auth([Role.ADMIN])
   @ApiOperation({ summary: 'Actualizar un menú por ID' })
   @ApiParam({ name: 'id', description: 'ID del menú' })
   @ApiBody({ type: UpdateMenuDto })
@@ -46,6 +50,7 @@ export class MenusController {
   }
 
   @Delete(':id')
+  @Auth([Role.ADMIN])
   @ApiOperation({ summary: 'Eliminar un menú por ID' })
   @ApiParam({ name: 'id', description: 'ID del menú' })
   remove(@Param('id') id: string) {

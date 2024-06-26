@@ -1,11 +1,8 @@
 import { Injectable } from '@nestjs/common';
-import { CreateUsuariosRoleDto } from './dto/create-usuarios_role.dto';
-import { UpdateUsuariosRoleDto } from './dto/update-usuarios_role.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { UsuariosRole } from './entities/usuarios_role.entity';
 import { Repository } from 'typeorm';
 import { RolesService } from 'src/roles/roles.service';
-import { UsuariosService } from 'src/usuarios/usuarios.service';
 
 @Injectable()
 export class UsuariosRolesService {
@@ -13,12 +10,11 @@ export class UsuariosRolesService {
     @InjectRepository(UsuariosRole)
     private usuarioRolRepository: Repository<UsuariosRole>,
     private rolesService: RolesService,
-    private usuarioService: UsuariosService,
   ) {}
-  async create(createUsuariosRoleDto: CreateUsuariosRoleDto) {
-    const rol = await this.rolesService.findOne(2);
+  async create(id_user: number) {
+    const rol = await this.rolesService.findOne(4);
     const us = this.usuarioRolRepository.create({
-      ...createUsuariosRoleDto,
+      id_usuario: id_user,
       id_rol: rol,
     });
     return this.usuarioRolRepository.save(us);

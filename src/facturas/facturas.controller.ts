@@ -11,6 +11,8 @@ import { FacturasService } from './facturas.service';
 import { CreateFacturaDto } from './dto/create-factura.dto';
 import { UpdateFacturaDto } from './dto/update-factura.dto';
 import { ApiBody, ApiOperation, ApiParam, ApiTags } from '@nestjs/swagger';
+import { Auth } from 'src/auth/decorators/auth.decorator';
+import { Role } from 'src/auth/enums/rol.enum';
 @ApiTags('facturas')
 @Controller('facturas')
 export class FacturasController {
@@ -36,7 +38,7 @@ export class FacturasController {
     return this.facturasService.findOne(id_factura);
   }
 
-  @Patch(':id')
+  /*@Patch(':id')
   @ApiOperation({ summary: 'Actualizar una factura por su ID' })
   @ApiParam({ name: 'id', description: 'ID de la factura' })
   @ApiBody({ type: UpdateFacturaDto })
@@ -45,9 +47,10 @@ export class FacturasController {
     @Body() updateFacturaDto: UpdateFacturaDto,
   ) {
     return this.facturasService.update(id_factura, updateFacturaDto);
-  }
+  }*/
 
   @Delete(':id')
+  @Auth([Role.ADMIN, Role.CONTADOR])
   @ApiOperation({ summary: 'Eliminar una factura por su ID' })
   @ApiParam({ name: 'id', description: 'ID de la factura' })
   remove(@Param('id') id_factura: number) {

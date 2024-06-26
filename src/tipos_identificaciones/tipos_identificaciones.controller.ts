@@ -11,6 +11,9 @@ import { TiposIdentificacionesService } from './tipos_identificaciones.service';
 import { CreateTiposIdentificacioneDto } from './dto/create-tipos_identificacione.dto';
 import { UpdateTiposIdentificacioneDto } from './dto/update-tipos_identificacione.dto';
 import { ApiBody, ApiOperation, ApiParam, ApiTags } from '@nestjs/swagger';
+import { Auth } from 'src/auth/decorators/auth.decorator';
+import { Role } from 'src/auth/enums/rol.enum';
+
 @ApiTags('tipos-identificaciones')
 @Controller('tipos-identificaciones')
 export class TiposIdentificacionesController {
@@ -19,6 +22,7 @@ export class TiposIdentificacionesController {
   ) {}
 
   @Post()
+  @Auth([Role.DIRECTOR, Role.ADMIN])
   @ApiOperation({ summary: 'Crear un nuevo tipo de identificación' })
   @ApiBody({ type: CreateTiposIdentificacioneDto })
   create(@Body() createTiposIdentificacioneDto: CreateTiposIdentificacioneDto) {
@@ -41,6 +45,7 @@ export class TiposIdentificacionesController {
   }
 
   @Patch(':id')
+  @Auth([Role.CONTADOR, Role.DIRECTOR, Role.ADMIN])
   @ApiOperation({ summary: 'Actualizar un tipo de identificación por ID' })
   @ApiParam({ name: 'id', description: 'ID del tipo de identificación' })
   @ApiBody({ type: UpdateTiposIdentificacioneDto })
@@ -55,6 +60,7 @@ export class TiposIdentificacionesController {
   }
 
   @Delete(':id')
+  @Auth([Role.ADMIN])
   @ApiOperation({ summary: 'Eliminar un tipo de identificación por ID' })
   @ApiParam({ name: 'id', description: 'ID del tipo de identificación' })
   remove(@Param('id') id: number) {

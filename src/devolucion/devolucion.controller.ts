@@ -11,12 +11,15 @@ import { DevolucionService } from './devolucion.service';
 import { CreateDevolucionDto } from './dto/create-devolucion.dto';
 import { UpdateDevolucionDto } from './dto/update-devolucion.dto';
 import { ApiBody, ApiOperation, ApiParam, ApiTags } from '@nestjs/swagger';
+import { Auth } from 'src/auth/decorators/auth.decorator';
+import { Role } from 'src/auth/enums/rol.enum';
 @ApiTags('devolucion')
 @Controller('devolucion')
 export class DevolucionController {
   constructor(private readonly devolucionService: DevolucionService) {}
 
   @Post()
+  @Auth([Role.ADMIN, Role.CONTADOR])
   @ApiOperation({ summary: 'Crear una nueva devolución' })
   @ApiBody({ type: CreateDevolucionDto })
   create(@Body() createDevolucionDto: CreateDevolucionDto) {
@@ -36,7 +39,7 @@ export class DevolucionController {
     return this.devolucionService.findOne(+id);
   }
 
-  @Patch(':id')
+  /* @Patch(':id')
   @ApiOperation({ summary: 'Actualizar una devolución por su ID' })
   @ApiParam({ name: 'id', description: 'ID de la devolución' })
   @ApiBody({ type: UpdateDevolucionDto })
@@ -46,8 +49,9 @@ export class DevolucionController {
   ) {
     return this.devolucionService.update(+id, updateDevolucionDto);
   }
-
+*/
   @Delete(':id')
+  @Auth([Role.ADMIN, Role.CONTADOR])
   @ApiOperation({ summary: 'Eliminar una devolución por su ID' })
   @ApiParam({ name: 'id', description: 'ID de la devolución' })
   remove(@Param('id') id: string) {

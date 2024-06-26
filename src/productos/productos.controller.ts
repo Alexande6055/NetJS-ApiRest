@@ -12,6 +12,8 @@ import { CreateProductoDto } from './dto/create-producto.dto';
 import { UpdateProductoDto } from './dto/update-producto.dto';
 import { sourceMapsEnabled } from 'process';
 import { ApiBody, ApiOperation, ApiParam, ApiTags } from '@nestjs/swagger';
+import { Auth } from 'src/auth/decorators/auth.decorator';
+import { Role } from 'src/auth/enums/rol.enum';
 
 @ApiTags('productos')
 @Controller('productos')
@@ -19,6 +21,7 @@ export class ProductosController {
   constructor(private readonly productosService: ProductosService) {}
 
   @Post()
+  @Auth([Role.ADMIN, Role.DIRECTOR])
   @ApiOperation({ summary: 'Crear un nuevo producto' })
   @ApiBody({ type: CreateProductoDto })
   create(@Body() createProductoDto: CreateProductoDto) {
@@ -43,6 +46,7 @@ export class ProductosController {
   @ApiOperation({ summary: 'Actualizar un producto por ID' })
   @ApiParam({ name: 'id', description: 'ID del producto' })
   @ApiBody({ type: UpdateProductoDto })
+  @Auth([Role.ADMIN, Role.DIRECTOR])
   update(
     @Param('id') id: number,
     @Body() updateProductoDto: UpdateProductoDto,
@@ -53,6 +57,7 @@ export class ProductosController {
   @Delete(':id')
   @ApiOperation({ summary: 'Eliminar un producto por ID' })
   @ApiParam({ name: 'id', description: 'ID del producto' })
+  @Auth([Role.ADMIN, Role.DIRECTOR])
   remove(@Param('id') id: number) {
     return this.productosService.remove(id);
   }

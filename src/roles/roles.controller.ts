@@ -11,6 +11,8 @@ import { RolesService } from './roles.service';
 import { CreateRoleDto } from './dto/create-role.dto';
 import { UpdateRoleDto } from './dto/update-role.dto';
 import { ApiBody, ApiOperation, ApiParam, ApiTags } from '@nestjs/swagger';
+import { Role } from 'src/auth/enums/rol.enum';
+import { Auth } from 'src/auth/decorators/auth.decorator';
 
 @ApiTags('roles')
 @Controller('roles')
@@ -18,6 +20,7 @@ export class RolesController {
   constructor(private readonly rolesService: RolesService) {}
 
   @Post()
+  @Auth([Role.ADMIN])
   @ApiOperation({ summary: 'Crear un nuevo rol' })
   @ApiBody({ type: CreateRoleDto })
   create(@Body() createRoleDto: CreateRoleDto) {
@@ -38,6 +41,7 @@ export class RolesController {
   }
 
   @Patch(':id')
+  @Auth([Role.ADMIN])
   @ApiOperation({ summary: 'Actualizar un rol por ID' })
   @ApiParam({ name: 'id', description: 'ID del rol' })
   @ApiBody({ type: UpdateRoleDto })
@@ -46,6 +50,7 @@ export class RolesController {
   }
 
   @Delete(':id')
+  @Auth([Role.ADMIN])
   @ApiOperation({ summary: 'Eliminar un rol por ID' })
   @ApiParam({ name: 'id', description: 'ID del rol' })
   remove(@Param('id') id: number) {
