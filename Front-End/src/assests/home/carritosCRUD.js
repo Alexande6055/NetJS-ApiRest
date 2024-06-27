@@ -109,4 +109,55 @@ async function eliminarProducto(id_carrito_producto) {
   }
 }
 
+async function generarDetalleFactura() {
+  const idsProductos = cart.map((item) => item.id);
+  const cantidades = cart.map((item) => item.cantidad);
+  const requestBody = [];
+
+  for (let i = 0; i < idsProductos.length; i++) {
+    requestBody.push({
+      id_producto: idsProductos[i],
+      cantidad: cantidades[i],
+    });
+  }
+  console.log(requestBody);
+
+  alert(requestBody);
+  try {
+    const response = await fetch('http://localhost:8000/api/detalle-facturas', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        requestBody,
+      }),
+    });
+
+    if (!response.ok) {
+      throw new Error('Failed to create invoice details');
+    }
+
+    // Lógica adicional después de crear el detalle de la factura, como redireccionar o mostrar un mensaje de éxito
+  } catch (error) {
+    console.error('Error creating invoice details:', error.message);
+  }
+}
+
+// Función para proceder al pago
+function procederAlPago() {
+  // Aquí podrías implementar una ventana modal o una página de pago simulada
+  // Después de que el pago sea exitoso, llamar a generarDetalleFactura()
+  generarDetalleFactura();
+}
+
+// Evento para proceder al pago
+const checkoutButton = document.getElementById('checkout-button');
+checkoutButton.addEventListener('click', async (event) => {
+  event.preventDefault();
+
+  // Llama a la función procederAlPago para manejar el pago
+  procederAlPago();
+});
+
 export { agregarProducto, cargarCarrito, cart };

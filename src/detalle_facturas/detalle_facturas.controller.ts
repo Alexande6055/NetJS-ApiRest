@@ -23,7 +23,8 @@ export class DetalleFacturasController {
   @Post()
   @ApiOperation({ summary: 'Crear un nuevo detalle de factura' })
   @ApiBody({ type: CreateDetalleFacturaDto })
-  create(@Body() createDetalleFacturaDto: CreateDetalleFacturaDto) {
+  create(@Body() createDetalleFacturaDto: CreateDetalleFacturaDto[]) {
+    console.log(createDetalleFacturaDto);
     return this.detalleFacturasService.create(createDetalleFacturaDto);
   }
 
@@ -45,17 +46,20 @@ export class DetalleFacturasController {
   @ApiParam({ name: 'id', description: 'ID del detalle de factura' })
   @ApiBody({ type: UpdateDetalleFacturaDto })
   update(
-    @Param('id') id: string,
+    @Param('id') id_detalle_factura: number,
     @Body() updateDetalleFacturaDto: UpdateDetalleFacturaDto,
   ) {
-    return this.detalleFacturasService.update(+id, updateDetalleFacturaDto);
+    return this.detalleFacturasService.update(
+      id_detalle_factura,
+      updateDetalleFacturaDto,
+    );
   }
 
   @Delete(':id')
   @Auth([Role.ADMIN, Role.CONTADOR])
   @ApiOperation({ summary: 'Eliminar un detalle de factura por su ID' })
   @ApiParam({ name: 'id', description: 'ID del detalle de factura' })
-  remove(@Param('id') id: string) {
-    return this.detalleFacturasService.remove(+id);
+  remove(@Param('id') id_detalle_factura: number) {
+    return this.detalleFacturasService.remove(id_detalle_factura);
   }
 }
