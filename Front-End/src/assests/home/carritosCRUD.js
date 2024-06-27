@@ -184,9 +184,9 @@ async function crearFactura() {
 // Función para proceder al pago
 async function procederAlPago() {
   const id_factura = await crearFactura();
-
   console.log(id_factura.id_factura);
   generarDetalleFactura(id_factura.id_factura);
+  vaciarCarrito();
 }
 
 const checkoutButton = document.getElementById('checkout-button');
@@ -225,3 +225,27 @@ async function cargarTipoPago() {
 // Llamar a la función para cargar los tipos de pago cuando se cargue la página
 document.addEventListener('DOMContentLoaded', cargarTipoPago);
 export { agregarProducto, cargarCarrito, cart };
+
+async function vaciarCarrito() {
+  const id_carrito = parseInt(obtenerIdCarrito());
+  try {
+    const response = await fetch(
+      `http://localhost:8000/api/carrito-producto/carrito/${id_carrito}`,
+      {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      },
+    );
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+
+    const data = await response.json();
+    console.log('Registros eliminados:', data.cantidadEliminada);
+  } catch (error) {
+    console.error('Error al eliminar el carrito:', error);
+  }
+}

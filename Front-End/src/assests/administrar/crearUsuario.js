@@ -11,6 +11,7 @@ async function crearUsuario(username1, password1) {
     }),
   });
   const data = await response.json();
+  console.log(data);
   asignaRol(data);
   return data;
 }

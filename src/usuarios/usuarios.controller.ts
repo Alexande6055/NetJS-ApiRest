@@ -38,14 +38,12 @@ export class UsuariosController {
   }
 
   @Get()
-  @Auth([Role.CONTADOR, Role.DIRECTOR, Role.ADMIN])
   @ApiOperation({ summary: 'Obtener todos los usuarios' })
   findAll() {
     return this.usuariosService.findAll();
   }
 
   @Get(':id')
-  @Auth([Role.CONTADOR, Role.DIRECTOR, Role.ADMIN])
   @ApiOperation({ summary: 'Obtener un usuario por ID' })
   @ApiParam({ name: 'id', description: 'ID del usuario' })
   findOne(@Param('id') id: number) {

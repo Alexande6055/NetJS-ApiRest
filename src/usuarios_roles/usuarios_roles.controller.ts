@@ -19,15 +19,9 @@ export class UsuariosRolesController {
   constructor(private readonly usuariosRolesService: UsuariosRolesService) {}
 
   @Post()
-  @Auth([Role.ADMIN])
   create(@Body() id_user: number) {
     return this.usuariosRolesService.create(id_user);
   }
-
-  /* @Post()
-  asignarDefault(@Body() createUsuariosRoleDto: CreateUsuariosRoleDto) {
-    return this.usuariosRolesService.create(createUsuariosRoleDto);
-  }*/
 
   @Get(':id')
   @ApiOperation({ summary: 'Obtener una relación usuario-rol por ID' })

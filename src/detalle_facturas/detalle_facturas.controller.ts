@@ -65,7 +65,6 @@ export class DetalleFacturasController {
     return this.detalleFacturasService.remove(id_detalle_factura);
   }
   @Delete('carrito/:id')
-  @Auth([Role.ADMIN, Role.CONTADOR])
   @ApiOperation({ summary: 'Eliminar un carrito por su ID' })
   @ApiParam({ name: 'id', description: 'ID del carrito_compra' })
   removeCarrito(@Param('id') id: number) {
