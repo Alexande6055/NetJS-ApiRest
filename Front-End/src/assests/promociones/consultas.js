@@ -46,18 +46,20 @@ document.addEventListener('DOMContentLoaded', () => {
     const discount = parseFloat(promotionDiscountInput.value);
     const startDate = promotionStartDateInput.value;
     const endDate = promotionEndDateInput.value;
-    if (description && discount && startDate && endDate) {
+    if (description && !isNaN(discount) && startDate && endDate) {
       try {
+        const token = localStorage.getItem('authToken');
         await fetch(apiEndpoint, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
           },
           body: JSON.stringify({
-            descripcion: description + '',
-            descuento: discount + '',
-            fecha_inicio: startDate + '',
-            fecha_fin: endDate + '',
+            descripcion: description,
+            descuento: discount,
+            fecha_inicio: startDate,
+            fecha_fin: endDate,
           }),
         });
         promotionDescriptionInput.value = '';

@@ -32,10 +32,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const paymentTypeName = paymentTypeNameInput.value;
     if (paymentTypeName) {
       try {
+        const token = localStorage.getItem('authToken');
         await fetch(apiEndpoint, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
           },
           body: JSON.stringify({ nombrePago: paymentTypeName }),
         });

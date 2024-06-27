@@ -24,16 +24,18 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   };
 
-  // Función para crear un nuevo tipo de identificación
   const createType = async (nombre) => {
     try {
+      const token = localStorage.getItem('authToken');
       const response = await fetch(apiUrl, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify({ nombre }),
       });
+
       if (response.ok) {
         fetchTypes();
         nameInput.value = '';
