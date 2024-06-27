@@ -13,19 +13,21 @@ import { UpdateDetalleFacturaDto } from './dto/update-detalle_factura.dto';
 import { ApiBody, ApiOperation, ApiParam, ApiTags } from '@nestjs/swagger';
 import { Auth } from 'src/auth/decorators/auth.decorator';
 import { Role } from 'src/auth/enums/rol.enum';
+import { CarritoProductoService } from 'src/carrito_producto/carrito_producto.service';
 @ApiTags('detalle-facturas')
 @Controller('detalle-facturas')
 export class DetalleFacturasController {
   constructor(
     private readonly detalleFacturasService: DetalleFacturasService,
+    private readonly carritoProductoService: CarritoProductoService,
   ) {}
 
   @Post()
   @ApiOperation({ summary: 'Crear un nuevo detalle de factura' })
   @ApiBody({ type: CreateDetalleFacturaDto })
-  create(@Body() createDetalleFacturaDto: CreateDetalleFacturaDto[]) {
+  create(@Body() createDetalleFacturaDto: CreateDetalleFacturaDto) {
     console.log(createDetalleFacturaDto);
-    return this.detalleFacturasService.create(createDetalleFacturaDto);
+    this.detalleFacturasService.create(createDetalleFacturaDto);
   }
 
   @Get()
@@ -61,5 +63,12 @@ export class DetalleFacturasController {
   @ApiParam({ name: 'id', description: 'ID del detalle de factura' })
   remove(@Param('id') id_detalle_factura: number) {
     return this.detalleFacturasService.remove(id_detalle_factura);
+  }
+  @Delete('carrito/:id')
+  @Auth([Role.ADMIN, Role.CONTADOR])
+  @ApiOperation({ summary: 'Eliminar un carrito por su ID' })
+  @ApiParam({ name: 'id', description: 'ID del carrito_compra' })
+  removeCarrito(@Param('id') id: number) {
+    return this.carritoProductoService.vaciarCarritoId(id);
   }
 }

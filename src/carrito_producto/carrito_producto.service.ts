@@ -60,4 +60,11 @@ export class CarritoProductoService {
       return null; // Guardar o actualizar
     }
   }
+
+  async vaciarCarritoId(id_carrito_compra: number) {
+    const deleteResult = await this.carritoProductoRepository.delete({
+      id_carrito_compra,
+    });
+    return deleteResult;
+  }
 }

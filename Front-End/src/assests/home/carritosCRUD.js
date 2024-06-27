@@ -1,4 +1,4 @@
-import { obtenerIdCarrito } from '../js/jwt.js';
+import { obtenerIdCarrito, obtenerIdUsuario } from '../js/jwt.js';
 const apiUrlCarrProduct = 'http://localhost:8000/api/carrito-producto';
 const id_carrito = parseInt(obtenerIdCarrito());
 let cart = []; // Definir cart aquí
@@ -66,8 +66,11 @@ function updateCart() {
     const precioElement = document.createElement('span');
     precioElement.textContent = `$${precio.toFixed(2)}`;
 
+    const total = document.createElement('span');
+    total.textContent = `$${precio * item.cantidad}`;
+
     const restarLink = document.createElement('a');
-    restarLink.textContent = '____';
+    restarLink.textContent = '**';
     restarLink.href = '#'; // Puedes usar "#" o "javascript:void(0)" como URL
     restarLink.addEventListener('click', async (event) => {
       event.preventDefault(); // Prevenir el comportamiento por defecto del enlace
@@ -109,55 +112,116 @@ async function eliminarProducto(id_carrito_producto) {
   }
 }
 
-async function generarDetalleFactura() {
+async function generarDetalleFactura(id_factura1) {
   const idsProductos = cart.map((item) => item.id);
   const cantidades = cart.map((item) => item.cantidad);
-  const requestBody = [];
 
   for (let i = 0; i < idsProductos.length; i++) {
-    requestBody.push({
+    const requestBody = {
       id_producto: idsProductos[i],
       cantidad: cantidades[i],
-    });
-  }
-  console.log(requestBody);
+      id_factura: id_factura1,
+    };
 
-  alert(requestBody);
+    try {
+      const response = await fetch(
+        'http://localhost:8000/api/detalle-facturas',
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(requestBody), // No envolvemos requestBody aquí
+        },
+      );
+
+      if (!response.ok) {
+        throw new Error('Failed to create invoice details');
+      }
+    } catch (error) {
+      console.error('Error creating invoice details:', error.message);
+    }
+  }
+}
+
+async function crearFactura() {
+  const tipoPagoSelect = document.getElementById('tipoPago');
+  const tipoPagoSeleccionado = parseInt(tipoPagoSelect.value);
+  const idUsuario = parseInt(obtenerIdUsuario());
+  var totalFactura = 0;
+  cart.forEach((item) => {
+    totalFactura += item.total * item.cantidad;
+  });
+
+  const requestBod = {
+    persona: idUsuario,
+    tipoPago: tipoPagoSeleccionado,
+    totalFactura: totalFactura,
+  };
+  console.log(requestBod);
   try {
-    const response = await fetch('http://localhost:8000/api/detalle-facturas', {
+    const response = await fetch('http://localhost:8000/api/facturas', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({
-        requestBody,
-      }),
+      body: JSON.stringify(requestBod),
     });
 
     if (!response.ok) {
-      throw new Error('Failed to create invoice details');
+      throw new Error(`HTTP error! Status: ${response.status}`);
     }
 
-    // Lógica adicional después de crear el detalle de la factura, como redireccionar o mostrar un mensaje de éxito
+    const data = await response.json();
+    console.log('Factura creada:', data);
+    return data;
   } catch (error) {
-    console.error('Error creating invoice details:', error.message);
+    console.error('Error al crear la factura:', error);
+    throw error;
   }
 }
 
 // Función para proceder al pago
-function procederAlPago() {
-  // Aquí podrías implementar una ventana modal o una página de pago simulada
-  // Después de que el pago sea exitoso, llamar a generarDetalleFactura()
-  generarDetalleFactura();
+async function procederAlPago() {
+  const id_factura = await crearFactura();
+
+  console.log(id_factura.id_factura);
+  generarDetalleFactura(id_factura.id_factura);
 }
 
-// Evento para proceder al pago
 const checkoutButton = document.getElementById('checkout-button');
 checkoutButton.addEventListener('click', async (event) => {
   event.preventDefault();
-
-  // Llama a la función procederAlPago para manejar el pago
   procederAlPago();
 });
 
+const tipoPagoSelect = document.getElementById('tipoPago');
+
+async function cargarTipoPago() {
+  const id_carrito = parseInt(obtenerIdCarrito());
+  if (!isNaN(id_carrito)) {
+    try {
+      const response = await fetch(`http://localhost:8000/api/tipo-pagos`);
+      if (!response.ok) {
+        throw new Error('Failed to fetch payment types');
+      }
+
+      const data = await response.json();
+
+      // Limpiar las opciones anteriores
+      tipoPagoSelect.innerHTML = '';
+      data.forEach((tipoPago) => {
+        const option = document.createElement('option');
+        option.value = tipoPago.id_pago;
+        option.textContent = tipoPago.nombrePago;
+        tipoPagoSelect.appendChild(option);
+      });
+    } catch (error) {
+      console.error('Error fetching payment types:', error.message);
+    }
+  }
+}
+
+// Llamar a la función para cargar los tipos de pago cuando se cargue la página
+document.addEventListener('DOMContentLoaded', cargarTipoPago);
 export { agregarProducto, cargarCarrito, cart };

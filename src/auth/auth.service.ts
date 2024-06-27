@@ -60,6 +60,7 @@ export class AuthService {
       username: user.username,
       role: usuario,
       id_carrito: id_carrito_compra,
+      id: user.id_usuario,
     };
 
     const token = await this.jwtService.signAsync(payload);

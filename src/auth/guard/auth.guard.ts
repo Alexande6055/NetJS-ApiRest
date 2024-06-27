@@ -18,7 +18,7 @@ export class AuthGuard implements CanActivate {
     const token = this.extractTokenFromHeader(request);
 
     if (!token) {
-      throw new UnauthorizedException('Hola');
+      throw new UnauthorizedException('Sin token');
     }
 
     try {
@@ -28,7 +28,7 @@ export class AuthGuard implements CanActivate {
       });
       request.user = payload;
     } catch {
-      throw new UnauthorizedException('sdfghj');
+      throw new UnauthorizedException('Token inválido o expirado');
     }
 
     return true;

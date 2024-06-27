@@ -22,7 +22,6 @@ import { CarritoProductoModule } from './carrito_producto/carrito_producto.modul
 import { DescuentoModule } from './descuento/descuento.module';
 import { MarcaModule } from './marca/marca.module';
 import { PromocionModule } from './promocion/promocion.module';
-import { DevolucionModule } from './devolucion/devolucion.module';
 
 @Module({
   imports: [
@@ -57,7 +56,6 @@ import { DevolucionModule } from './devolucion/devolucion.module';
     DescuentoModule,
     MarcaModule,
     PromocionModule,
-    DevolucionModule,
   ],
   controllers: [AppController],
   providers: [AppService],

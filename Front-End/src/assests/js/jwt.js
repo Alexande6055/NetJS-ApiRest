@@ -10,4 +10,12 @@ function obtenerIdCarrito() {
   const playload = JSON.parse(atob(array[1]));
   return playload?.id_carrito;
 }
-export { obtenerIdCarrito };
+
+function obtenerIdUsuario() {
+  const token = getAuthToken();
+  const array = token.split('.');
+  const payload = JSON.parse(atob(array[1]));
+
+  return payload?.id;
+}
+export { obtenerIdCarrito, obtenerIdUsuario };

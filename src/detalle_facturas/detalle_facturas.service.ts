@@ -14,31 +14,18 @@ export class DetalleFacturasService {
     private readonly productoService: ProductosService,
   ) {}
 
-  async create(createDetalleFacturaDto: CreateDetalleFacturaDto[]) {
-    const detallesFactura = [];
-    console.log(1);
-    // for (const detalleDto of createDetalleFacturaDto) {
-    for (let i = 0; i < createDetalleFacturaDto.length; i++) {
-      const registro = await this.detalleFacturaRepository.create({
-        id_producto: parseInt(
-          createDetalleFacturaDto[i].id_producto.toString(),
-        ),
-        cantidad: parseInt(createDetalleFacturaDto[i].cantidad.toString()),
-      });
-      const producto = await this.productoService.findOne(
-        createDetalleFacturaDto[i].cantidad,
-      );
-      console.log(producto);
-      registro.calcularTotal(
-        parseFloat(producto.precio.toString()),
-        createDetalleFacturaDto[i].cantidad,
-      );
-      const detalleGuardado =
-        await this.detalleFacturaRepository.save(registro);
-      detallesFactura.push(detalleGuardado);
-      console.log(i);
-    }
-    return detallesFactura;
+  async create(createDetalleFacturaDto: CreateDetalleFacturaDto) {
+    const registro = await this.detalleFacturaRepository.create({
+      ...createDetalleFacturaDto,
+      id_producto: createDetalleFacturaDto.id_producto,
+      cantidad: createDetalleFacturaDto.cantidad,
+    });
+    const producto = await this.productoService.findOne(
+      createDetalleFacturaDto.id_producto,
+    );
+    registro.precio_unitario = parseFloat(producto.precio.toString());
+    registro.calcularTotal(createDetalleFacturaDto.cantidad);
+    return this.detalleFacturaRepository.save(registro);
   }
 
   findAll() {

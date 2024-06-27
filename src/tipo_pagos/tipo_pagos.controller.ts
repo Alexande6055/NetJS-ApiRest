@@ -28,14 +28,12 @@ export class TipoPagosController {
   }
 
   @Get()
-  @Auth([Role.CONTADOR, Role.DIRECTOR, Role.ADMIN])
   @ApiOperation({ summary: 'Obtener todos los tipos de pago' })
   findAll() {
     return this.tipoPagosService.findAll();
   }
 
   @Get(':id')
-  @Auth([Role.CONTADOR, Role.DIRECTOR, Role.ADMIN])
   @ApiOperation({ summary: 'Obtener un tipo de pago por su ID' })
   @ApiParam({ name: 'id', description: 'ID del tipo de pago' })
   findOne(@Param('id') id: number) {

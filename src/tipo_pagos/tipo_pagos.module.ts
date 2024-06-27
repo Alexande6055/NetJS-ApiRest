@@ -8,5 +8,6 @@ import { TipoPago } from './entities/tipo_pago.entity';
   imports: [TypeOrmModule.forFeature([TipoPago])],
   controllers: [TipoPagosController],
   providers: [TipoPagosService],
+  exports: [TipoPagosService],
 })
 export class TipoPagosModule {}

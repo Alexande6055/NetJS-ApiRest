@@ -113,26 +113,11 @@
         <div id="cart" class="hidden">
           <h2>Carrito de Compras</h2>
           <div id="cart-items"></div>
-          <button id="proceder-button">Proceder al pago</button>
           <button id="cerrar_carrito">x</button>
-          <form id="payment-form">
-            <label for="card-number">Número de tarjeta:</label>
-            <input type="text" id="card-number" name="card-number" required />
-
-            <label for="card-expiry">Fecha de expiración:</label>
-            <input
-              type="text"
-              id="card-expiry"
-              name="card-expiry"
-              placeholder="MM/YY"
-              required
-            />
-
-            <label for="card-cvc">CVC:</label>
-            <input type="text" id="card-cvc" name="card-cvc" required />
-
-            <button id="checkout-button">PAGAR</button>
-          </form>
+          <div class="form-group">
+          <label for="tipoPago">TipoPago</label>
+          <select id="tipoPago" name="id_promocion"></select>
+          <button id="checkout-button">Proceder al pago</button>
         </div>
       </main>
     </div>

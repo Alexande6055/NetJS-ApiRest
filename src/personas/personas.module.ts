@@ -15,6 +15,6 @@ import { UsuariosModule } from 'src/usuarios/usuarios.module';
   ],
   controllers: [PersonasController],
   providers: [PersonasService /*, TiposIdentificacionesService*/],
-  exports: [TypeOrmModule],
+  exports: [TypeOrmModule, PersonasService],
 })
 export class PersonasModule {}

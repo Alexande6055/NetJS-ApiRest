@@ -3,9 +3,12 @@ import { Persona } from 'src/personas/entities/persona.entity';
 import { TipoPago } from 'src/tipo_pagos/entities/tipo_pago.entity';
 import {
   Column,
+  DeleteDateColumn,
   Double,
   Entity,
   JoinColumn,
+  ManyToOne,
+  OneToMany,
   OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
@@ -17,15 +20,24 @@ export class Factura {
   codigo_factura: 'f000';
   @Column({ type: 'date', nullable: false })
   fecha: Date;
-  @OneToOne(() => DetalleFactura)
-  @JoinColumn({ name: 'id_detalle_factura' })
-  detalleFactura: DetalleFactura;
-  @OneToOne(() => Persona)
+  @ManyToOne(() => Persona)
   @JoinColumn({ name: 'id_persona' })
-  persona: Persona;
-  @OneToOne(() => TipoPago)
+  persona: number;
+  @ManyToOne(() => TipoPago)
   @JoinColumn({ name: 'id_pago' })
-  tipoPago: TipoPago;
-  @Column({ type: 'decimal', nullable: false, precision: 10, scale: 4 })
+  tipoPago: number;
+  @Column({
+    type: 'decimal',
+    nullable: false,
+    default: 0,
+    precision: 10,
+    scale: 4,
+  })
   totalFactura: number;
+  @OneToMany(() => DetalleFactura, (detalle) => detalle.id_factura, {
+    eager: true,
+  })
+  detallefac: DetalleFactura[];
+  @Column({ name: 'estado', default: 'ACT' })
+  estado: string;
 }

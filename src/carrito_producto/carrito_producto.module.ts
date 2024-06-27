@@ -14,5 +14,6 @@ import { CarritoCompraModule } from 'src/carrito_compra/carrito_compra.module';
   ],
   controllers: [CarritoProductoController],
   providers: [CarritoProductoService],
+  exports: [CarritoProductoService],
 })
 export class CarritoProductoModule {}

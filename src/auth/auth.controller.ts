@@ -43,18 +43,6 @@ export class AuthController {
   login(@Body() loginDto: LoginDto) {
     return this.authService.login(loginDto);
   }
-  //implementacion de Autenticacion por jwt
-  @Get('profile')
-  //@Roles([Role.ADMIN])
-  //carga el canActive del AuthGuard y lo usa el RolesGuard
-  //@UseGuards(AuthGuard, RolesGuard)
-  @Auth([Role.ADMIN])
-  profile(@Req() req: RequestWithUser) {
-    return this.authService.profile({
-      username: req.user.username,
-      rol: req.user.role,
-    });
-  }
   @Get('verificacion')
   @ApiOperation({ summary: 'Verificar el token de autenticación' })
   @ApiHeader({
